@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Список продуктов</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="'Hello, ' + ${name} + '!'" />
+
+<div>
+    <form method="post">
+        <input type="text" name="foodItemName" placeholder="введите название продукта">
+        <input type="text" name="calories" placeholder="введите количество ккал">
+        <input type="text" name="protein" placeholder="введите количество белков, г">
+        <input type="text" name="fat" placeholder="введите количество жиров, г">
+        <input type="text" name="carbohydrates" placeholder="введите количество углеводов, г">
+        <button type="submit">Добавить</button>
+    </form>
+</div>
+<ul>
+    <li></li>
+</ul>
+</body>
+</html>
