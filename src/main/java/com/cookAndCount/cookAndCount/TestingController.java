@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author patronovskiy
  * @link https://github.com/patronovskiy
  */
-@Controller
+//@Controller
 public class TestingController {
 
     //добавление продуктов
@@ -25,6 +25,8 @@ public class TestingController {
 
     @GetMapping()
     public String main(Map<String, Object> model) {
+
+
         List<FoodItem> foodItems = foodItemRepository.findAll();
 
         for (FoodItem foodItem : foodItems) {
@@ -68,7 +70,7 @@ public class TestingController {
         }
 
         model.put("recipes", recipes);
-        return "recipeInput";
+        return "recipeInput";   //todo почему возвращает эту страницу?
     }
 
     @PostMapping("/mainRecipe")
@@ -76,9 +78,9 @@ public class TestingController {
                             @RequestParam String description,
                             Map<String, Object> model) {
 
-        Recipe recipe = new Recipe(recipeName, description);
+//        Recipe recipe = new Recipe(recipeName, description);
 
-        recipeRepository.save(recipe);
+//        recipeRepository.save(recipe);
 
         return "recipeInput";
     }

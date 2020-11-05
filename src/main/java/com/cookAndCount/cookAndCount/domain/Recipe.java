@@ -1,6 +1,9 @@
 package com.cookAndCount.cookAndCount.domain;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author patronovskiy
@@ -17,25 +20,35 @@ public class Recipe {
     private String recipeName;
 
     //суммарное количество КБЖУ
-    private int sumCalories;
-    private int sumProtein;
-    private int sumFat;
-    private int sumCarbohydrates;
+    private int sumCalories = 0;
+    private int sumProtein = 0;
+    private int sumFat = 0;
+    private int sumCarbohydrates = 0;
 
     private String description;
 
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "foodItemId")
-//    private FoodItem foodItem;             // тут будет список, а не отдельный продукт
-
+    @OneToMany(targetEntity = FoodItemsList.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "recipe_fk", referencedColumnName = "recipeId")
+    private List<FoodItemsList> foodItemsLists;
 
     public Recipe() {
     }
 
-    public Recipe(String recipeName, String description){
+
+    public Recipe(String recipeName, String description, List<FoodItemsList> ingredients){
         this.recipeName = recipeName;
         this.description = description;
+        this.foodItemsLists = ingredients;
+
+        for (FoodItemsList ingredient : ingredients) {
+            this.sumCalories += ingredient.getCalories();
+            this.sumProtein += ingredient.getProtein();
+            this.sumFat += ingredient.getFat();
+            this.sumCarbohydrates += ingredient.getCarbohydrates();
+        }
     }
+
+
 
     public String getRecipeName() {
         return recipeName;
