@@ -1,25 +1,132 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Список продуктов</title>
+    <title>Cook and count</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<p th:text="'Hello, ' + ${name} + '!'" />
+<h1>Cook and Count</h1>
 
-<div>
-    <form method="post">
-        <input type="text" name="foodItemName" placeholder="введите название продукта">
-        <input type="text" name="calories" placeholder="введите количество ккал">
-        <input type="text" name="protein" placeholder="введите количество белков, г">
-        <input type="text" name="fat" placeholder="введите количество жиров, г">
-        <input type="text" name="carbohydrates" placeholder="введите количество углеводов, г">
-        <button type="submit">Добавить</button>
-    </form>
+<div class="menuBar">
+    <list>
+        <ul>
+            <a href="#">Авторизация</a>
+        </ul>
+        <ul>
+            <a href="#">Выход</a>
+        </ul>
+    </list>
+</div>
+
+<div class="products">
+    <div class="productsList">
+        <table>
+            <caption>Список продуктов</caption>
+            <thead>
+            <tr>
+                <th>Наименование</th>
+                <th>Ккал на 100 г</th>
+                <th>Белки, г на 100 г</th>
+                <th>Жиры, г на 100 г</th>
+                <th>Углеводы, г на 100 г</th>
+            </tr>
+            </thead>
+            <tbody>
+<!--            <tr th:if="${foodItems.empty}">-->
+<!--                <td colspan="5">Нет продуктов</td>-->
+<!--            </tr>-->
+            <tr th:each="foodItem : ${foodItems}">
+                <td><span th:text="${foodItem.foodItemName}">Название продукта</span></td>
+                <td><span th:text="${foodItem.calories}">Количество ккал на 100 г</span></td>
+                <td><span th:text="${foodItem.protein}">Количество белка на 100 г</span></td>
+                <td><span th:text="${foodItem.fat}">Количество жиров на 100 г</span></td>
+                <td><span th:text="${foodItem.carbohydrates}">Количество углеводов на 100 г</span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="addFoodItemForm">
+        <span>Добавить продукт</span>
+        <form method="post" th:action="@{/addFoodItem}">
+            <input type="text" name="foodItemName" placeholder="введите название продукта">
+            <input type="text" name="calories" placeholder="введите количество ккал">
+            <input type="text" name="protein" placeholder="введите количество белков, г">
+            <input type="text" name="fat" placeholder="введите количество жиров, г">
+            <input type="text" name="carbohydrates" placeholder="введите количество углеводов, г">
+            <button type="submit">Добавить</button>
+        </form>
+    </div>
+</div>
+
+<div class="recipes">
+    <div class="RecipesList">
+        <table>
+            <caption>Мои рецепты</caption>
+            <thead>
+            <tr>
+                <th>Название</th>
+                <th>Ккал на 100 г</th>
+                <th>Белки, г на 100 г</th>
+                <th>Жиры, г на 100 г</th>
+                <th>Углеводы, г на 100 г</th>
+                <th>Описание</th>
+            </tr>
+            </thead>
+            <tbody>
+<!--            <tr th:if="${recipes.empty}">-->
+<!--                <td colspan="6">Нет рецептов</td>-->
+<!--            </tr>-->
+            <tr th:each="recipe : ${recipes}">
+                <td><span th:text="${recipe.recipeName}">Название продукта</span></td>
+                <td><span th:text="${recipe.sumCalories}">Количество ккал на 100 г</span></td>
+                <td><span th:text="${recipe.sumProtein}">Количество белка на 100 г</span></td>
+                <td><span th:text="${recipe.sumFat}">Количество жиров на 100 г</span></td>
+                <td><span th:text="${recipe.sumCarbohydrates}">Количество углеводов на 100 г</span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="/getIngredientsForAddingRecipe">
+        <form method="post" th:action="@{/getIngredientsForAddingRecipe}" id="getIngredientsForAddingRecipe">
+            <input type="text" form="getIngredientsForAddingRecipe" placeholder="Введите название рецепта" name="recipeName" id="recipeNameInput">
+            <label for="recipeNameInput">Название рецепта</label>
+            <textarea form="getIngredientsForAddingRecipe" placeholder="Введите описание рецепта" name="recipeDescription"
+                      id="recipeDescriptionTextarea">
+            </textarea>
+            <label for="recipeDescriptionTextarea">Описание рецепта</label>
+            <table>
+                <caption>Список продуктов</caption>
+                <thead>
+                <tr>
+                    <th>Добавить</th>
+                    <th>Название</th>
+                    <th>Ккал на 100 г</th>
+                    <th>Белки, г на 100 г</th>
+                    <th>Жиры, г на 100 г</th>
+                    <th>Углеводы, г на 100 г</th>
+                </tr>
+                </thead>
+                <tbody>
+<!--                <tr th:if="${foodItems.empty}">-->
+<!--                    <td colspan="6">No products available</td>-->
+<!--                </tr>-->
+                <tr th:each="foodItem : ${foodItems}">
+                    <td><input type="checkbox" form="getIngredientsForAddingRecipe" name="addProductCheckbox" th:value="${foodItem.foodItemId}"> </td>
+                    <td><span th:text="${foodItem.foodItemName}">Название продукта</span></td>
+                    <td><span th:text="${foodItem.calories}">Количество ккал на 100 г</span></td>
+                    <td><span th:text="${foodItem.protein}">Количество белка на 100 г</span></td>
+                    <td><span th:text="${foodItem.fat}">Количество жиров на 100 г</span></td>
+                    <td><span th:text="${foodItem.carbohydrates}">Количество углеводов на 100 г</span></td>
+                </tr>
+                </tbody>
+            </table>
+            <input type="submit" form="getIngredientsForAddingRecipe" value="Отправить">
+        </form>
+    </div>
 
 </div>
-<ul>
-    <li></li>
-</ul>
+
 </body>
 </html>
