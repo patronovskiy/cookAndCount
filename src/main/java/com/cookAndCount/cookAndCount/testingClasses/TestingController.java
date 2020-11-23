@@ -1,4 +1,4 @@
-package com.cookAndCount.cookAndCount;
+package com.cookAndCount.cookAndCount.testingClasses;
 
 import java.util.List;
 import java.util.Map;

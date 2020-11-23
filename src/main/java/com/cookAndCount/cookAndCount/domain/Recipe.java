@@ -20,10 +20,10 @@ public class Recipe {
     private String recipeName;
 
     //суммарное количество КБЖУ
-    private int sumCalories = 0;
-    private int sumProtein = 0;
-    private int sumFat = 0;
-    private int sumCarbohydrates = 0;
+    private double sumCalories = 0;
+    private double sumProtein = 0;
+    private double sumFat = 0;
+    private double sumCarbohydrates = 0;
 
     private String description;
 
@@ -40,15 +40,24 @@ public class Recipe {
         this.description = description;
         this.foodItemsLists = ingredients;
 
+
         for (FoodItemsList ingredient : ingredients) {
             this.sumCalories += ingredient.getCalories();
             this.sumProtein += ingredient.getProtein();
             this.sumFat += ingredient.getFat();
             this.sumCarbohydrates += ingredient.getCarbohydrates();
+            //todo save?
         }
     }
 
 
+    public Long getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(Long recipeId) {
+        this.recipeId = recipeId;
+    }
 
     public String getRecipeName() {
         return recipeName;
@@ -58,35 +67,35 @@ public class Recipe {
         this.recipeName = recipeName;
     }
 
-    public int getSumCalories() {
+    public double getSumCalories() {
         return sumCalories;
     }
 
-    public void setSumCalories(int sumCalories) {
+    public void setSumCalories(double sumCalories) {
         this.sumCalories = sumCalories;
     }
 
-    public int getSumProtein() {
+    public double getSumProtein() {
         return sumProtein;
     }
 
-    public void setSumProtein(int sumProtein) {
+    public void setSumProtein(double sumProtein) {
         this.sumProtein = sumProtein;
     }
 
-    public int getSumFat() {
+    public double getSumFat() {
         return sumFat;
     }
 
-    public void setSumFat(int sumFat) {
+    public void setSumFat(double sumFat) {
         this.sumFat = sumFat;
     }
 
-    public int getSumCarbohydrates() {
+    public double getSumCarbohydrates() {
         return sumCarbohydrates;
     }
 
-    public void setSumCarbohydrates(int sumCarbohydrates) {
+    public void setSumCarbohydrates(double sumCarbohydrates) {
         this.sumCarbohydrates = sumCarbohydrates;
     }
 
@@ -96,5 +105,13 @@ public class Recipe {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<FoodItemsList> getFoodItemsLists() {
+        return foodItemsLists;
+    }
+
+    public void setFoodItemsLists(List<FoodItemsList> foodItemsLists) {
+        this.foodItemsLists = foodItemsLists;
     }
 }

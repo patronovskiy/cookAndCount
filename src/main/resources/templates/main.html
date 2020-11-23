@@ -32,9 +32,9 @@
             </tr>
             </thead>
             <tbody>
-<!--            <tr th:if="${foodItems.empty}">-->
-<!--                <td colspan="5">Нет продуктов</td>-->
-<!--            </tr>-->
+            <!--            <tr th:if="${foodItems.empty}">-->
+            <!--                <td colspan="5">Нет продуктов</td>-->
+            <!--            </tr>-->
             <tr th:each="foodItem : ${foodItems}">
                 <td><span th:text="${foodItem.foodItemName}">Название продукта</span></td>
                 <td><span th:text="${foodItem.calories}">Количество ккал на 100 г</span></td>
@@ -59,6 +59,46 @@
     </div>
 </div>
 
+
+<div class="recipes-section">
+    <div class="add-recipe-section">
+        <form method="post" th:action="@{/addRecipeTest}" th:object="${recipe}">
+            <table>
+                <caption>Добавить новый рецепт</caption>
+                <tr>
+                    <td>Название рецепта</td>
+                    <td><input type="text" name="recipeName" th:field="*{recipeName}"></td>
+                </tr>
+                <tr>
+                    <td>Описание рецепта</td>
+                    <td><textarea name="description" th:field="*{description}"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Выберите продукт</td>
+                    <td>Введите количество продукта</td>
+                    <td><input type="submit" th:text="Добавить">Добавить</td>
+                </tr>
+                <tr th:each="foodItemList : ${foodItemLists}">
+                    <td>
+                        <input list="food-items-list" type="text" name="foodItemName">
+                        <datalist id="food-items-list">
+                            <option th:each="foodItem : ${foodItems}" th:value="${foodItem.foodItemName}" th:text="${foodItem.foodItemName}"></option>
+                        </datalist>
+                    </td>
+                    <td>
+                        <input type="number" name="foodItemQuantity">
+                    </td>
+                </tr>
+            </table>
+        </form>
+<!--        <form method="get" name="addRow">-->
+<!--            <button th:action="@{/addRow}">Добавить еще ингредиенты</button>-->
+<!--        </form>-->
+
+    </div>
+
+</div>
+
 <div class="recipes">
     <div class="RecipesList">
         <table>
@@ -74,57 +114,22 @@
             </tr>
             </thead>
             <tbody>
-<!--            <tr th:if="${recipes.empty}">-->
-<!--                <td colspan="6">Нет рецептов</td>-->
-<!--            </tr>-->
+            <tr th:if="${recipes.empty}">
+            <td colspan="6">Нет рецептов</td>
+            </tr>
             <tr th:each="recipe : ${recipes}">
                 <td><span th:text="${recipe.recipeName}">Название продукта</span></td>
                 <td><span th:text="${recipe.sumCalories}">Количество ккал на 100 г</span></td>
                 <td><span th:text="${recipe.sumProtein}">Количество белка на 100 г</span></td>
                 <td><span th:text="${recipe.sumFat}">Количество жиров на 100 г</span></td>
                 <td><span th:text="${recipe.sumCarbohydrates}">Количество углеводов на 100 г</span></td>
+                <td><span th:text="${recipe.description}">Описание</span></td>
             </tr>
             </tbody>
         </table>
     </div>
 
-    <div class="/getIngredientsForAddingRecipe">
-        <form method="post" th:action="@{/getIngredientsForAddingRecipe}" id="getIngredientsForAddingRecipe">
-            <input type="text" form="getIngredientsForAddingRecipe" placeholder="Введите название рецепта" name="recipeName" id="recipeNameInput">
-            <label for="recipeNameInput">Название рецепта</label>
-            <textarea form="getIngredientsForAddingRecipe" placeholder="Введите описание рецепта" name="recipeDescription"
-                      id="recipeDescriptionTextarea">
-            </textarea>
-            <label for="recipeDescriptionTextarea">Описание рецепта</label>
-            <table>
-                <caption>Список продуктов</caption>
-                <thead>
-                <tr>
-                    <th>Добавить</th>
-                    <th>Название</th>
-                    <th>Ккал на 100 г</th>
-                    <th>Белки, г на 100 г</th>
-                    <th>Жиры, г на 100 г</th>
-                    <th>Углеводы, г на 100 г</th>
-                </tr>
-                </thead>
-                <tbody>
-<!--                <tr th:if="${foodItems.empty}">-->
-<!--                    <td colspan="6">No products available</td>-->
-<!--                </tr>-->
-                <tr th:each="foodItem : ${foodItems}">
-                    <td><input type="checkbox" form="getIngredientsForAddingRecipe" name="addProductCheckbox" th:value="${foodItem.foodItemId}"> </td>
-                    <td><span th:text="${foodItem.foodItemName}">Название продукта</span></td>
-                    <td><span th:text="${foodItem.calories}">Количество ккал на 100 г</span></td>
-                    <td><span th:text="${foodItem.protein}">Количество белка на 100 г</span></td>
-                    <td><span th:text="${foodItem.fat}">Количество жиров на 100 г</span></td>
-                    <td><span th:text="${foodItem.carbohydrates}">Количество углеводов на 100 г</span></td>
-                </tr>
-                </tbody>
-            </table>
-            <input type="submit" form="getIngredientsForAddingRecipe" value="Отправить">
-        </form>
-    </div>
+
 
 </div>
 

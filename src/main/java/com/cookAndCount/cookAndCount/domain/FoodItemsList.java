@@ -28,6 +28,7 @@ import java.util.Map;
 @Entity
 public class FoodItemsList {
 
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     Long foodItemListId;
@@ -41,13 +42,20 @@ public class FoodItemsList {
     private double fat;
     private double carbohydrates;
 
+    private long foodItemId;
+
     private int foodItemQuantity;
+
+//    //!!!
+//    @ManyToOne
+//    private FoodItem foodItem;
 
     public FoodItemsList() {
     }
 
     public FoodItemsList(FoodItem foodItem, int foodItemQuantity) {
        foodItem.addFoodItemList(this);
+       this.foodItemId = foodItem.getFoodItemId();
        this.calories = foodItem.getCalories()*foodItemQuantity/100;
        this.fat = foodItem.getFat()*foodItemQuantity/100;
        this.carbohydrates = foodItem.getCarbohydrates()*foodItemQuantity/100;
@@ -101,6 +109,14 @@ public class FoodItemsList {
 
     public void setCarbohydrates(double carbohydrates) {
         this.carbohydrates = carbohydrates;
+    }
+
+    public long getFoodItemId() {
+        return foodItemId;
+    }
+
+    public void setFoodItemId(long foodItemId) {
+        this.foodItemId = foodItemId;
     }
 }
 

@@ -1,5 +1,6 @@
-package com.cookAndCount.cookAndCount.domain;
+package com.cookAndCount.cookAndCount.testingClasses;
 
+import com.cookAndCount.cookAndCount.domain.FoodItem;
 import com.cookAndCount.cookAndCount.repositories.FoodItemRepository;
 
 /**

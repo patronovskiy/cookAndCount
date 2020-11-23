@@ -1,22 +1,25 @@
 package com.cookAndCount.cookAndCount.controllers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import com.cookAndCount.cookAndCount.domain.FoodItem;
 import com.cookAndCount.cookAndCount.domain.FoodItemsList;
-import com.cookAndCount.cookAndCount.domain.FoodItemsTestingLoader;
 import com.cookAndCount.cookAndCount.domain.Recipe;
 import com.cookAndCount.cookAndCount.repositories.FoodItemRepository;
 import com.cookAndCount.cookAndCount.repositories.FoodItemsListRepository;
 import com.cookAndCount.cookAndCount.repositories.RecipeRepository;
+import com.cookAndCount.cookAndCount.testingClasses.FoodItemsTestingLoader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 
 /**
  * @author patronovskiy
@@ -24,6 +27,9 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class MainController {
+
+    //Вспомогательные переменные
+    int ingredientsCount = 10;
 
     //репозитории для доступа к БД
     @Autowired
@@ -38,11 +44,30 @@ public class MainController {
     public String main(Map<String, Object> model) {
 
         //загрузка продуктов в бд todo - удалить, это для отладки
-        // boolean isProductsLoaded = false;
-        //FoodItemsTestingLoader.fillFoodItemsDB(isProductsLoaded, foodItemRepository);
+//         boolean isProductsLoaded = false;
+//        FoodItemsTestingLoader.fillFoodItemsDB(isProductsLoaded, foodItemRepository);
 
         getFoodItems(foodItemRepository, model);
+
+        //todo - отладка - удалить - добавление рецепта
+//        FoodItem foodItem = foodItemRepository.findById(1);
+//        ArrayList<FoodItemsList> foodItemsLists = new ArrayList<>();
+//        FoodItemsList foodItemsList = new FoodItemsList(foodItem, 200);
+//        foodItemsLists.add(foodItemsList);
+//        Recipe recipe = new Recipe("testAuto", "...", foodItemsLists);
+//        recipeRepository.save(recipe);
+
         getRecipes(recipeRepository, model);
+
+        //создание пустого рецепта и помещение в model
+        Recipe recipe = new Recipe("", "", new ArrayList<FoodItemsList>());
+        model.put("recipe", recipe);
+        ArrayList<FoodItemsList> foodItemsLists = new ArrayList<>();
+        for (int i = 0; i < ingredientsCount; i++) {
+            foodItemsLists.add(new FoodItemsList());
+        }
+        model.put("foodItemLists", foodItemsLists);
+
 
         return "main";
     }
@@ -76,10 +101,10 @@ public class MainController {
                               Map<String, Object> model) {
 
         FoodItem foodItem = new FoodItem(foodItemName,
-        Integer.parseInt(calories),
-        Double.parseDouble(protein),
-        Double.parseDouble(fat),
-        Double.parseDouble(carbohydrates));
+            Integer.parseInt(calories),
+            Double.parseDouble(protein),
+            Double.parseDouble(fat),
+            Double.parseDouble(carbohydrates));
 
         foodItemRepository.save(foodItem);
 
@@ -87,55 +112,38 @@ public class MainController {
         return "redirect:/main";
     }
 
-    //добавление рецепта - выбор ингредиентов
-    @PostMapping("/getIngredientsForAddingRecipe")
-    public String addRecipe(@ModelAttribute("foodItems") ArrayList<FoodItem> foodItems,
-                            @RequestParam (name="recipeName", required = true) String recipeName,
-                            @RequestParam (name="addProductCheckbox", required = true) long[] productCheckboxes,
-                            @RequestParam (name="recipeDescription", required = false) String recipeDescription,
-                            Map<String, Object> model) {
-
-        ArrayList<FoodItem> ingredients = new ArrayList<FoodItem>();
-
-        for (long foodItemId : productCheckboxes) {
-            ingredients.add(foodItemRepository.findById(foodItemId));
-        }
-
-        model.put("ingredients", ingredients);
-        model.put("recipeName", recipeName);
-        model.put("recipeDescription", recipeDescription);
-
-        return "addRecipe";
+    @GetMapping("addRow")
+    public String addRow(Model model) {
+        //не работает todo
+        ingredientsCount++;
+        return "redirect:/main";
     }
 
-    @PostMapping("/addRecipeIngredients")
-    public String addRecipe(@RequestParam Map<String,String> allParams,
-                            @ModelAttribute("ingredients") ArrayList<FoodItem> ingredients,
-                            @ModelAttribute ("recipeName") String recipeName,
-                            @ModelAttribute ("recipeDescription") String recipeDescription,
-                            Map<String, Object> model){
+    @PostMapping("/addRecipeTest")
+    public String addRecipeTest(@RequestParam (name="recipeName") String recipeName,
+                                @RequestParam (name="description") String description,
+                                @RequestParam (name="foodItemName") String[] foodItemNames,
+                                @RequestParam (name="foodItemQuantity") String[] foodItemQuantities,
+                                Map<String, Object> model) {
 
-        List<FoodItemsList> foodItemsLists = new ArrayList<>();
-
-        for (int i = 0; i < ingredients.size(); i++) {
-            int quantity = Integer.parseInt(allParams.get("quantity"+ingredients.get(i).getFoodItemId()));
-            FoodItemsList foodItemsList= new FoodItemsList(ingredients.get(i), quantity);
-            foodItemsListRepository.save(foodItemsList);
-            System.out.println(foodItemsList.getCalories());
-            foodItemsLists.add(foodItemsList);
+        ArrayList<FoodItemsList> foodItemsLists = new ArrayList<>();
+        for (int i = 0; i < foodItemNames.length; i ++) {
+            if(foodItemNames[i].length() > 0 && foodItemQuantities[i].length() > 0) {
+                try{
+                    FoodItem foodItem = foodItemRepository.findByFoodItemName(foodItemNames[i]);
+                    FoodItemsList foodItemsList = new FoodItemsList(foodItem, Integer.parseInt(foodItemQuantities[i]));
+                    foodItemsListRepository.save(foodItemsList);
+                    foodItemsLists.add(foodItemsList);
+                } catch (Exception er) {
+                    return "errorNoProduct";
+                }
+            }
         }
-
-        Recipe recipe = new Recipe(recipeName, recipeDescription, foodItemsLists);
+        Recipe recipe = new Recipe(recipeName, description, foodItemsLists);
         recipeRepository.save(recipe);
 
         return "redirect:/main";
     }
-
-
-
-
-
-
 
 
 }

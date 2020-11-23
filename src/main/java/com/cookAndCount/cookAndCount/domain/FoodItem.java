@@ -30,7 +30,7 @@ public class FoodItem {
     //наименование продукта
     private String foodItemName;
     //КБЖУ продукта на 100 г
-    private int calories;
+    private double calories;
     private double protein;
     private double fat;
     private double carbohydrates;
@@ -45,7 +45,7 @@ public class FoodItem {
     protected FoodItem() {
     }
 
-    public FoodItem(String foodItemName, int calories, double protein, double fat, double carbohydrates) {
+    public FoodItem(String foodItemName, double calories, double protein, double fat, double carbohydrates) {
         this.foodItemName = foodItemName;
         this.calories = calories;
         this.protein = protein;
@@ -93,7 +93,7 @@ public class FoodItem {
         this.foodItemName = foodItemName;
     }
 
-    public void setCalories(int calories) {
+    public void setCalories(double calories) {
         this.calories = calories;
     }
 
@@ -132,4 +132,5 @@ public class FoodItem {
     public void addFoodItemList(FoodItemsList foodItemsList) {
         this.foodItemsLists.add(foodItemsList);
     }
+
 }
