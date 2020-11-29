@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Список продуктов</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <h1>Все рецепты</h1>
+        <div class="recipesSection">
+            <div class="searchRecipeSection">
+                <form name="searchRecipeForm" method="post" th:action="@{/searchRecipeByName}" >
+                    <input name="recipeName" type="text" list="recipeDatalist" placeholder="Начните вводить название рецепта...">
+                    <datalist id="recipeDatalist">
+                        <option th:each=" recipe : ${recipes}" th:value="${recipe.recipeName}" th:text="${recipe.recipeName}"></option>
+                    </datalist>
+                    <button type="submit">Искать рецепт</button>
+                </form>
+            </div>
+            <div class="RecipesListSection">
+                <table>
+                    <caption>Мои рецепты</caption>
+                    <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Ккал на 100 г</th>
+                        <th>Белки, г на 100 г</th>
+                        <th>Жиры, г на 100 г</th>
+                        <th>Углеводы, г на 100 г</th>
+                        <th>Описание</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${recipes.empty}">
+                        <td colspan="6">Нет рецептов</td>
+                    </tr>
+                    <tr th:each="recipe : ${recipes}">
+                        <td><a th:href="@{/viewRecipe(enteredRecipeId=${recipe.recipeId})}" href="/viewRecipe.html">
+                            <span th:text="${recipe.recipeName}">Название продукта</span>
+                        </a>
+                        </td>
+                        <td><span th:text="${recipe.sumCalories}">Количество ккал на 100 г</span></td>
+                        <td><span th:text="${recipe.sumProtein}">Количество белка на 100 г</span></td>
+                        <td><span th:text="${recipe.sumFat}">Количество жиров на 100 г</span></td>
+                        <td><span th:text="${recipe.sumCarbohydrates}">Количество углеводов на 100 г</span></td>
+                        <td><span th:text="${recipe.description}">Описание</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </body>
+</html>

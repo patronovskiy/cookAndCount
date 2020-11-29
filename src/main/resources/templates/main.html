@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>Cook and Count</h1>
-<h2 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h2>
+<h2 th:inline="text">Приветсвуем, [[${#httpServletRequest.remoteUser}]]!</h2>
 
 <div class="menuBarSection">
     <list class="menuBar">
@@ -22,101 +22,20 @@
             <a href="#">Мои списки</a>
         </ul>
         <ul>
+            <a href="/products">Все продукты</a>
+        </ul>
+        <ul>
+            <a href="/recipes">Все рецепты</a>
+        </ul>
+        <ul>
             <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Sign Out"/>
+                <input type="submit" value="Выйти"/>
             </form>
         </ul>
     </list>
 </div>
 
 <div class="recipesSection">
-    <form name="recipeSearch" method="post" th:action="@{/searchRecipeByName}">
-
-    </form>
-</div>
-
-<div class="products">
-    <div class="productsList">
-        <table>
-            <caption>Список продуктов</caption>
-            <thead>
-            <tr>
-                <th>Наименование</th>
-                <th>Ккал на 100 г</th>
-                <th>Белки, г на 100 г</th>
-                <th>Жиры, г на 100 г</th>
-                <th>Углеводы, г на 100 г</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!--            <tr th:if="${foodItems.empty}">-->
-            <!--                <td colspan="5">Нет продуктов</td>-->
-            <!--            </tr>-->
-            <tr th:each="foodItem : ${foodItems}">
-                <td><span th:text="${foodItem.foodItemName}">Название продукта</span></td>
-                <td><span th:text="${foodItem.calories}">Количество ккал на 100 г</span></td>
-                <td><span th:text="${foodItem.protein}">Количество белка на 100 г</span></td>
-                <td><span th:text="${foodItem.fat}">Количество жиров на 100 г</span></td>
-                <td><span th:text="${foodItem.carbohydrates}">Количество углеводов на 100 г</span></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="addFoodItemForm">
-        <span>Добавить продукт</span>
-        <form method="post" th:action="@{/addFoodItem}">
-            <input type="text" name="foodItemName" placeholder="введите название продукта">
-            <input type="text" name="calories" placeholder="введите количество ккал">
-            <input type="text" name="protein" placeholder="введите количество белков, г">
-            <input type="text" name="fat" placeholder="введите количество жиров, г">
-            <input type="text" name="carbohydrates" placeholder="введите количество углеводов, г">
-            <button type="submit">Добавить</button>
-        </form>
-    </div>
-</div>
-
-
-<div class="recipes-section">
-    <div class="add-recipe-section">
-        <form method="post" th:action="@{/addRecipeTest}" th:object="${recipe}">
-            <table>
-                <caption>Добавить новый рецепт</caption>
-                <tr>
-                    <td>Название рецепта</td>
-                    <td><input type="text" name="recipeName" th:field="*{recipeName}"></td>
-                </tr>
-                <tr>
-                    <td>Описание рецепта</td>
-                    <td><textarea name="description" th:field="*{description}"></textarea></td>
-                </tr>
-                <tr>
-                    <td>Выберите продукт</td>
-                    <td>Введите количество продукта</td>
-                    <td><input type="submit" th:text="Добавить">Добавить</td>
-                </tr>
-                <tr th:each="foodItemList : ${foodItemLists}">
-                    <td>
-                        <input list="food-items-list" type="text" name="foodItemName">
-                        <datalist id="food-items-list">
-                            <option th:each="foodItem : ${foodItems}" th:value="${foodItem.foodItemName}" th:text="${foodItem.foodItemName}"></option>
-                        </datalist>
-                    </td>
-                    <td>
-                        <input type="number" name="foodItemQuantity">
-                    </td>
-                </tr>
-            </table>
-        </form>
-<!--        <form method="get" name="addRow">-->
-<!--            <button th:action="@{/addRow}">Добавить еще ингредиенты</button>-->
-<!--        </form>-->
-
-    </div>
-
-</div>
-
-<div class="recipes">
     <div class="searchRecipeSection">
         <form name="searchRecipeForm" method="post" th:action="@{/searchRecipeByName}" >
             <input name="recipeName" type="text" list="recipeDatalist" placeholder="Начните вводить название рецепта...">
@@ -126,7 +45,7 @@
             <button type="submit">Искать рецепт</button>
         </form>
     </div>
-    <div class="RecipesList">
+    <div class="RecipesListSection">
         <table>
             <caption>Мои рецепты</caption>
             <thead>
@@ -141,12 +60,12 @@
             </thead>
             <tbody>
             <tr th:if="${recipes.empty}">
-            <td colspan="6">Нет рецептов</td>
+                <td colspan="6">Нет рецептов</td>
             </tr>
             <tr th:each="recipe : ${recipes}">
                 <td><a th:href="@{/viewRecipe(enteredRecipeId=${recipe.recipeId})}" href="/viewRecipe.html">
-                        <span th:text="${recipe.recipeName}">Название продукта</span>
-                    </a>
+                    <span th:text="${recipe.recipeName}">Название продукта</span>
+                </a>
                 </td>
                 <td><span th:text="${recipe.sumCalories}">Количество ккал на 100 г</span></td>
                 <td><span th:text="${recipe.sumProtein}">Количество белка на 100 г</span></td>
@@ -157,10 +76,59 @@
             </tbody>
         </table>
     </div>
-
-
+    <div class="addRecipeSection">
+        <form method="post" th:action="@{/addRecipeTest}" th:object="${recipe}">
+            <table>
+                <caption>Добавить новый рецепт</caption>
+                <tr>
+                    <td>Название рецепта</td>
+                    <td><input type="text" name="recipeName" th:field="*{recipeName}"></td>
+                </tr>
+                <tr>
+                    <td>Описание рецепта</td>
+                    <td><textarea name="description" th:field="*{description}"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Выберите продукт</td>
+                    <td>Введите количество продукта</td>
+                    <td><input type="submit" th:text="Добавить"></td>
+                </tr>
+                <tr th:each="foodItemList : ${foodItemLists}">
+                    <td>
+                        <input list="food-items-list" type="text" name="foodItemName" autocomplete="off">
+                        <datalist id="food-items-list">
+                            <option th:each="foodItem : ${foodItems}" th:value="${foodItem.foodItemName}" th:text="${foodItem.foodItemName}"></option>
+                        </datalist>
+                    </td>
+                    <td>
+                        <input type="number" name="foodItemQuantity">
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <!--        <form method="get" name="addRow">-->
+        <!--            <button th:action="@{/addRow}">Добавить еще ингредиенты</button>-->
+        <!--        </form>-->
+    </div>
 
 </div>
+
+
+<div class="productsSection">
+
+    <div class="addFoodItemForm">
+        <span>Добавить продукт</span>
+        <form method="post" th:action="@{/addFoodItem}">
+            <input type="text" name="foodItemName" placeholder="введите название продукта">
+            <input type="text" name="calories" placeholder="введите количество ккал">
+            <input type="text" name="protein" placeholder="введите количество белков, г">
+            <input type="text" name="fat" placeholder="введите количество жиров, г">
+            <input type="text" name="carbohydrates" placeholder="введите количество углеводов, г">
+            <button type="submit">Добавить</button>
+        </form>
+    </div>
+</div>
+
 
 </body>
 </html>

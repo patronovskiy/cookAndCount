@@ -44,10 +44,10 @@ public class MainController {
     public String main(Map<String, Object> model) {
 
         //загрузка продуктов в бд todo - удалить, это для отладки
-         boolean isProductsLoaded = false;
-        FoodItemsTestingLoader.fillFoodItemsDB(isProductsLoaded, foodItemRepository);
+//         boolean isProductsLoaded = false;
+//        FoodItemsTestingLoader.fillFoodItemsDB(isProductsLoaded, foodItemRepository);
 
-        getFoodItems(foodItemRepository, model);
+        ProductsController.getFoodItems(foodItemRepository, model);
 
         //todo - отладка - удалить - добавление рецепта
 //        FoodItem foodItem = foodItemRepository.findById(1);
@@ -57,7 +57,7 @@ public class MainController {
 //        Recipe recipe = new Recipe("testAuto", "...", foodItemsLists);
 //        recipeRepository.save(recipe);
 
-        getRecipes(recipeRepository, model);
+        RecipesController.getRecipes(recipeRepository, model);
 
         //создание пустого рецепта и помещение в model
         Recipe recipe = new Recipe("", "", new ArrayList<FoodItemsList>());
@@ -79,21 +79,6 @@ public class MainController {
 
 
     //методы для отображения элементов на главной странице
-    //отображение продуктов из БД
-    public void getFoodItems(FoodItemRepository foodItemRepository, Map<String, Object> model) {
-        List<FoodItem> foodItems = foodItemRepository.findAll();
-
-        for (FoodItem foodItem : foodItems) {
-            System.out.println(foodItem.getFoodItemName());
-        }
-        model.put("foodItems", foodItems);
-    }
-
-    //отображение рецептов из БД
-    public void getRecipes(RecipeRepository recipeRepository, Map<String, Object> model) {
-        List<Recipe> recipes = recipeRepository.findAll();
-        model.put("recipes", recipes);
-    }
 
     //обработка форм главной страницы
     //добавление продукта
@@ -105,13 +90,17 @@ public class MainController {
                               @RequestParam String carbohydrates,
                               Map<String, Object> model) {
 
-        FoodItem foodItem = new FoodItem(foodItemName,
-            Integer.parseInt(calories),
-            Double.parseDouble(protein),
-            Double.parseDouble(fat),
-            Double.parseDouble(carbohydrates));
+        if(foodItemRepository.findByFoodItemName(foodItemName) == null) {
+            FoodItem foodItem = new FoodItem(foodItemName,
+                Integer.parseInt(calories),
+                Double.parseDouble(protein),
+                Double.parseDouble(fat),
+                Double.parseDouble(carbohydrates));
 
-        foodItemRepository.save(foodItem);
+            foodItemRepository.save(foodItem);
+        } else {
+            System.out.println("Такой продукт уже есть");
+        }
 
         //обновляем главную страницу
         return "redirect:/main";
