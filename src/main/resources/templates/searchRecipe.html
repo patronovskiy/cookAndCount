@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head>
+        <title>Поиск рецептов</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+</head>
+<body>
+<h1>Поиск рецептов по запросу "<span th:text="${searchRecipeName}"></span>"</h1>
+<div class="recipes">
+    <div class="RecipesList">
+    <table>
+        <caption>По вашему запросу найдены рецепты:</caption>
+        <thead>
+        <tr>
+            <th>Название</th>
+            <th>Ккал на 100 г</th>
+            <th>Белки, г на 100 г</th>
+            <th>Жиры, г на 100 г</th>
+            <th>Углеводы, г на 100 г</th>
+            <th>Описание</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${searchRecipes.empty}">
+            <td colspan="6">Рецепты не найдены</td>
+        </tr>
+        <tr th:each="recipe : ${searchRecipes}">
+            <td><a href="/viewRecipe?enteredRecipeId=${recipe.recipeId}"><span th:text="${recipe.recipeName}">Название продукта</span></a></td>
+            <td><span th:text="${recipe.sumCalories}">Количество ккал на 100 г</span></td>
+            <td><span th:text="${recipe.sumProtein}">Количество белка на 100 г</span></td>
+            <td><span th:text="${recipe.sumFat}">Количество жиров на 100 г</span></td>
+            <td><span th:text="${recipe.sumCarbohydrates}">Количество углеводов на 100 г</span></td>
+            <td><span th:text="${recipe.description}">Описание</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+</div>
+</body>
+</html>

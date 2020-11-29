@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cook and count - Продукт не найден</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <h1>Ошибка - нет такого продукта</h1>
+    <div class="addFoodItemForm">
+        <span>Добавить продукт</span>
+        <form method="post" th:action="@{/addFoodItem}">
+            <input type="text" name="foodItemName" placeholder="введите название продукта">
+            <input type="text" name="calories" placeholder="введите количество ккал">
+            <input type="text" name="protein" placeholder="введите количество белков, г">
+            <input type="text" name="fat" placeholder="введите количество жиров, г">
+            <input type="text" name="carbohydrates" placeholder="введите количество углеводов, г">
+            <button type="submit">Добавить</button>
+        </form>
+    </div>
+</body>
+</html>

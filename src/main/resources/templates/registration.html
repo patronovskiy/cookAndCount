@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cook and count - Регистрация</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Регистрация</h1>
+<div th:if="${message}">
+    <span th:text="${message}"></span>
+</div>
+<form th:action="@{/registration}" method="post">
+    <div><label> Логин: <input type="text" name="username"/> </label></div>
+    <div><label> Пароль: <input type="password" name="password"/> </label></div>
+    <div><label> Email: <input type="email" name="email"/> </label></div>
+    <div><input type="submit" value="Зарегистрироваться"/></div>
+</form>
+</body>
+</html>

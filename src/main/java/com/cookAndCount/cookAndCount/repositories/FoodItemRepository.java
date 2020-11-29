@@ -1,5 +1,6 @@
 package com.cookAndCount.cookAndCount.repositories;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.cookAndCount.cookAndCount.domain.FoodItem;
 import org.springframework.data.repository.CrudRepository;
@@ -11,10 +12,10 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface FoodItemRepository extends CrudRepository<FoodItem, Long> {
 
-    List<FoodItem> findByFoodItemName(String foodItemName);
+    FoodItem findByFoodItemName(String foodItemName);
 
     FoodItem findById(long Id);
 
-    List<FoodItem> findAll();
+    ArrayList<FoodItem> findAll();
 
 }
