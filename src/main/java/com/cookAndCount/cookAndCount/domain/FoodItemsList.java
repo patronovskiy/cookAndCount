@@ -17,6 +17,8 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import com.cookAndCount.cookAndCount.repositories.FoodItemRepository;
+import org.springframework.data.annotation.Transient;
 
 /**
  * @author patronovskiy
@@ -45,6 +47,9 @@ public class FoodItemsList {
     private long foodItemId;
 
     private int foodItemQuantity;
+
+
+
 
 //    //!!!
 //    @ManyToOne
@@ -118,6 +123,12 @@ public class FoodItemsList {
     public void setFoodItemId(long foodItemId) {
         this.foodItemId = foodItemId;
     }
+
+    public FoodItem getFoodItem(FoodItemRepository foodItemRepository) {
+        FoodItem foodItem = foodItemRepository.findById(this.foodItemId);
+        return foodItem;
+    }
+
 }
 
 //встраиваемый класс для реализации составного ключа

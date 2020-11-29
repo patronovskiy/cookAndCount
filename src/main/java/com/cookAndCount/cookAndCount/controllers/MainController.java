@@ -44,8 +44,8 @@ public class MainController {
     public String main(Map<String, Object> model) {
 
         //загрузка продуктов в бд todo - удалить, это для отладки
-//         boolean isProductsLoaded = false;
-//        FoodItemsTestingLoader.fillFoodItemsDB(isProductsLoaded, foodItemRepository);
+         boolean isProductsLoaded = false;
+        FoodItemsTestingLoader.fillFoodItemsDB(isProductsLoaded, foodItemRepository);
 
         getFoodItems(foodItemRepository, model);
 
@@ -70,6 +70,11 @@ public class MainController {
 
 
         return "main";
+    }
+
+    @GetMapping("/")
+    public String main() {
+        return "redirect:/main";
     }
 
 
@@ -144,6 +149,34 @@ public class MainController {
 
         return "redirect:/main";
     }
+
+    @PostMapping("/searchRecipeByName")
+    public String searchRecipeByName(@RequestParam ("recipeName") String recipeName,
+                                     Map<String, Object> model) {
+
+        ArrayList<Recipe> recipes = recipeRepository.findAllByPartOfName(recipeName);
+        model.put("searchRecipeName", recipeName);
+        model.put("searchRecipes", recipes);
+
+        return "searchRecipe";
+    }
+
+    @GetMapping("/viewRecipe")
+    public String viewRecipe(@RequestParam ("enteredRecipeId") String enteredId,
+                             Map<String, Object> model) {
+        Recipe foundRecipe = recipeRepository.findById(Long.parseLong(enteredId));
+        ArrayList<FoodItem> recipeFoodItems = new ArrayList<>();
+        for (FoodItemsList foodItemsList : foundRecipe.getFoodItemsLists()) {
+            FoodItem foodItem = foodItemRepository.findById(foodItemsList.getFoodItemId());
+            recipeFoodItems.add(foodItem);
+        }
+        model.put("recipeFoodItems", recipeFoodItems);
+        model.put("foundRecipe", foundRecipe);
+        model.put("foodItemRepository", foodItemRepository);
+        return "viewRecipe";
+    }
+
+    //TODO реализовать методы searchFoodItemByName, viewFoodItem
 
 
 }

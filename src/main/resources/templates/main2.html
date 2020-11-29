@@ -3,36 +3,19 @@
 <head>
     <title>Cook and count</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css"
-          href="/styles/main.css" data-th-href="@{/styles/main.css}" />
 </head>
 <body>
 <h1>Cook and Count</h1>
-<h2 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h2>
 
-<div class="menuBarSection">
-    <list class="menuBar">
+<div class="menuBar">
+    <list>
         <ul>
-            <a href="#">Добавить рецепт</a>
+            <a href="#">Авторизация</a>
         </ul>
         <ul>
-            <a href="#">Добавить продукт</a>
-        </ul>
-        <ul>
-            <a href="#">Мои списки</a>
-        </ul>
-        <ul>
-            <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Sign Out"/>
-            </form>
+            <a href="#">Выход</a>
         </ul>
     </list>
-</div>
-
-<div class="recipesSection">
-    <form name="recipeSearch" method="post" th:action="@{/searchRecipeByName}">
-
-    </form>
 </div>
 
 <div class="products">
@@ -117,15 +100,6 @@
 </div>
 
 <div class="recipes">
-    <div class="searchRecipeSection">
-        <form name="searchRecipeForm" method="post" th:action="@{/searchRecipeByName}" >
-            <input name="recipeName" type="text" list="recipeDatalist" placeholder="Начните вводить название рецепта...">
-            <datalist id="recipeDatalist">
-                <option th:each=" recipe : ${recipes}" th:value="${recipe.recipeName}" th:text="${recipe.recipeName}"></option>
-            </datalist>
-            <button type="submit">Искать рецепт</button>
-        </form>
-    </div>
     <div class="RecipesList">
         <table>
             <caption>Мои рецепты</caption>
@@ -144,10 +118,7 @@
             <td colspan="6">Нет рецептов</td>
             </tr>
             <tr th:each="recipe : ${recipes}">
-                <td><a th:href="@{/viewRecipe(enteredRecipeId=${recipe.recipeId})}" href="/viewRecipe.html">
-                        <span th:text="${recipe.recipeName}">Название продукта</span>
-                    </a>
-                </td>
+                <td><span th:text="${recipe.recipeName}">Название продукта</span></td>
                 <td><span th:text="${recipe.sumCalories}">Количество ккал на 100 г</span></td>
                 <td><span th:text="${recipe.sumProtein}">Количество белка на 100 г</span></td>
                 <td><span th:text="${recipe.sumFat}">Количество жиров на 100 г</span></td>

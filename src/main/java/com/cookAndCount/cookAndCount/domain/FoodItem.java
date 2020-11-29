@@ -30,6 +30,7 @@ public class FoodItem {
     //наименование продукта
     private String foodItemName;
     //КБЖУ продукта на 100 г
+
     private double calories;
     private double protein;
     private double fat;
