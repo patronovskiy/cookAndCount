@@ -53,11 +53,14 @@ public class RegistrationController {
         UserAccount newUser = new UserAccount(username, passwordEncoder.encode(password), email);
         newUser.setIsActive(true);
         newUser.setRoles(Collections.singleton(Role.USER));
-        RecipeList recipeList = new RecipeList();
-        recipeListRepository.save(recipeList);
-        newUser.setRecipeList(recipeList);
+        //список рецептов по умолчанию
+//        RecipeList recipeList = new RecipeList();
+//        recipeList.setRecipeListName(RecipeList.DEFAULT_RECIPE_LIST_NAME);
+//        recipeListRepository.save(recipeList);
+//        newUser.setRecipeList(recipeList);
         userAccountRepository.save(newUser);
-
+//        recipeList.setOwnerId(newUser.getUserId());
+//        recipeListRepository.save(recipeList);
         return "redirect:/login";
     }
 

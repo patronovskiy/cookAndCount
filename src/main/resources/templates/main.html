@@ -13,19 +13,19 @@
 <div class="menuBarSection">
     <list class="menuBar">
         <ul>
-            <a href="#">Добавить рецепт</a>
+            <a href="/newRecipe">Добавить рецепт</a>
         </ul>
         <ul>
-            <a href="#">Добавить продукт</a>
+            <a href="/newProduct">Добавить продукт</a>
         </ul>
         <ul>
-            <a href="#">Мои списки</a>
+            <a href="/recipeLists">Мои списки</a>
         </ul>
         <ul>
             <a href="/products">Все продукты</a>
         </ul>
         <ul>
-            <a href="/recipes">Все рецепты</a>
+            <a th:href="@{/viewAllRecipes}">Все рецепты</a>
         </ul>
         <ul>
             <form th:action="@{/logout}" method="post">
@@ -59,10 +59,10 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:if="${recipes.empty}">
+            <tr th:if="${userRecipes.empty}">
                 <td colspan="6">Нет рецептов</td>
             </tr>
-            <tr th:each="recipe : ${recipes}">
+            <tr th:each="recipe : ${userRecipes}">
                 <td><a th:href="@{/viewRecipe(enteredRecipeId=${recipe.recipeId})}" href="/viewRecipe.html">
                     <span th:text="${recipe.recipeName}">Название продукта</span>
                 </a>
@@ -77,7 +77,7 @@
         </table>
     </div>
     <div class="addRecipeSection">
-        <form method="post" th:action="@{/addRecipeTest}" th:object="${recipe}">
+        <form method="post" th:action="@{/addRecipe}" th:object="${recipe}">
             <table>
                 <caption>Добавить новый рецепт</caption>
                 <tr>
