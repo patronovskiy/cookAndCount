@@ -1,23 +1,17 @@
-package com.cookAndCount.cookAndCount;
+package com.cookAndCount.cookAndCount.testingClasses;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import com.cookAndCount.cookAndCount.domain.FoodItem;
 import com.cookAndCount.cookAndCount.domain.FoodItemsList;
 import com.cookAndCount.cookAndCount.domain.Recipe;
-import com.cookAndCount.cookAndCount.domain.RecipeCreationDto;
 import com.cookAndCount.cookAndCount.repositories.FoodItemRepository;
 import com.cookAndCount.cookAndCount.repositories.FoodItemsListRepository;
 import com.cookAndCount.cookAndCount.repositories.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author patronovskiy

@@ -1,6 +1,10 @@
 package com.cookAndCount.cookAndCount.domain;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.Set;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * @author patronovskiy
@@ -8,7 +12,7 @@ import javax.persistence.*;
  */
 
 @Entity
-public class UserAccount {
+public class UserAccount implements UserDetails {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -18,6 +22,12 @@ public class UserAccount {
     private String username;
     private String password;
     private String email;
+    private boolean isActive;
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name="user_role", joinColumns = @JoinColumn(name="user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -33,6 +43,34 @@ public class UserAccount {
         this.email = email;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isActive;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
+    }
 
     public Long getUserId() {
         return userId;
@@ -44,10 +82,6 @@ public class UserAccount {
 
     public String getUsername() {
         return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getPassword() {
@@ -72,5 +106,21 @@ public class UserAccount {
 
     public void setRecipeList(RecipeList recipeList) {
         this.recipeList = recipeList;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean active) {
+        this.isActive = active;
     }
 }

@@ -1,6 +1,7 @@
-package com.cookAndCount.cookAndCount.domain;
+package com.cookAndCount.cookAndCount.testingClasses;
 
 import java.util.List;
+import com.cookAndCount.cookAndCount.domain.FoodItemsList;
 
 /**
  * @author patronovskiy
