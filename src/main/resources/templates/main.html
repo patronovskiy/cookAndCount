@@ -5,38 +5,29 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<<<<<<< Updated upstream
-<p th:text="'Hello, ' + ${name} + '!'" />
 
-<div>
-    <form method="post">
-        <input type="text" name="foodItemName" placeholder="введите название продукта">
-        <input type="text" name="calories" placeholder="введите количество ккал">
-        <input type="text" name="protein" placeholder="введите количество белков, г">
-        <input type="text" name="fat" placeholder="введите количество жиров, г">
-        <input type="text" name="carbohydrates" placeholder="введите количество углеводов, г">
-        <button type="submit">Добавить</button>
-    </form>
-=======
+
 <h1>Cook and Count</h1>
 <h2 th:inline="text">Приветствуем, [[${#httpServletRequest.remoteUser}]]!</h2>
 
 <div class="menuBarSection">
     <list class="menuBar">
         <ul>
-            <a href="#">
+
+            <a href="/newRecipe">
                 <input class="menuButton" type="button" value = "Добавить рецепт">
             </a>
         </ul>
         <ul>
-            <a href="#">
+            <a href="/newProduct">
                 <input class="menuButton" type="button" value = "Добавить продукт">
             </a>
         </ul>
         <ul>
-            <a href="#">
+            <a href="/recipeLists">
                 <input class="menuButton" type="button" value = "Мои списки">
             </a>
+
         </ul>
         <ul>
             <a href="/products">
@@ -44,9 +35,11 @@
             </a>
         </ul>
         <ul>
-            <a href="/recipes">
+
+            <a th:href="@{/viewAllRecipes}>
                 <input class="menuButton" type="button" value = "Все рецепты">
             </a>
+
         </ul>
         <ul>
             <form th:action="@{/logout}" method="post">
@@ -80,10 +73,10 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:if="${recipes.empty}">
+            <tr th:if="${userRecipes.empty}">
                 <td colspan="6">Нет рецептов</td>
             </tr>
-            <tr th:each="recipe : ${recipes}">
+            <tr th:each="recipe : ${userRecipes}">
                 <td><a th:href="@{/viewRecipe(enteredRecipeId=${recipe.recipeId})}" href="/viewRecipe.html">
                     <span th:text="${recipe.recipeName}">Название продукта</span>
                 </a>
@@ -98,7 +91,8 @@
         </table>
     </div>
     <div class="addRecipeSection">
-        <form method="post" th:action="@{/addRecipeTest}" th:object="${recipe}">
+
+        <form method="post" th:action="@{/addRecipe}" th:object="${recipe}">
             <table class="addRecipeTable">
                 <caption class="tableName">Добавить новый рецепт</caption>
                 <tr>
@@ -148,7 +142,7 @@
             <button type="submit">Добавить</button>
         </form>
     </div>
->>>>>>> Stashed changes
+
 </div>
 <ul>
     <li></li>

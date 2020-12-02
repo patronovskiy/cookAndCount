@@ -20,6 +20,7 @@
             <th>Белки, г на 100 г</th>
             <th>Жиры, г на 100 г</th>
             <th>Углеводы, г на 100 г</th>
+            <th>Добавить в свой список</th>
         </tr>
         </thead>
         <tbody>
@@ -29,6 +30,16 @@
             <td><span th:text="${foundRecipe.sumProtein}">Количество белка на 100 г</span></td>
             <td><span th:text="${foundRecipe.sumFat}">Количество жиров на 100 г</span></td>
             <td><span th:text="${foundRecipe.sumCarbohydrates}">Количество углеводов на 100 г</span></td>
+            <td>
+                <form method="post" th:action="@{/addRecipeToList}" name="addRecipeToList">
+                    <input name="addingRecipeId" th:value="${foundRecipe.recipeId}" class="hidden">
+                    <!--                                если будет несколько списков-->
+                    <!--                                <select name="recipeListName">-->
+                    <!--                                    <option th:each="recipeList : ${recipeLists}" th:value="${recipeList.recipeListName}"></option>-->
+                    <!--                                </select>-->
+                    <button type="submit">Добавить в список</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
