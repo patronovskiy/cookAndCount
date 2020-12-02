@@ -14,7 +14,6 @@ import com.cookAndCount.cookAndCount.repositories.FoodItemsListRepository;
 import com.cookAndCount.cookAndCount.repositories.RecipeListRepository;
 import com.cookAndCount.cookAndCount.repositories.RecipeRepository;
 import com.cookAndCount.cookAndCount.repositories.UserAccountRepository;
-import com.cookAndCount.cookAndCount.testingClasses.FoodItemsTestingLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Controller;

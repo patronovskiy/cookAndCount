@@ -3,6 +3,8 @@
 <head>
     <title>Список продуктов</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css"
+          href="/styles/main.css" data-th-href="@{/styles/main.css}" />
 </head>
 <body>
 
@@ -12,31 +14,28 @@
 
 <div class="menuBarSection">
     <list class="menuBar">
-        <ul>
-
-            <a href="/newRecipe">
-                <input class="menuButton" type="button" value = "Добавить рецепт">
-            </a>
-        </ul>
-        <ul>
-            <a href="/newProduct">
-                <input class="menuButton" type="button" value = "Добавить продукт">
-            </a>
-        </ul>
-        <ul>
-            <a href="/recipeLists">
-                <input class="menuButton" type="button" value = "Мои списки">
-            </a>
-
-        </ul>
+<!--        <ul>-->
+<!--            <a href="/newRecipe">-->
+<!--                <input class="menuButton" type="button" value = "Добавить рецепт">-->
+<!--            </a>-->
+<!--        </ul>-->
+<!--        <ul>-->
+<!--            <a href="/newProduct">-->
+<!--                <input class="menuButton" type="button" value = "Добавить продукт">-->
+<!--            </a>-->
+<!--        </ul>-->
+<!--        <ul>-->
+<!--            <a href="/recipeLists">-->
+<!--                <input class="menuButton" type="button" value = "Мои списки">-->
+<!--            </a>-->
+<!--        </ul>-->
         <ul>
             <a href="/products">
                 <input class="menuButton" type="button" value = "Все продукты">
             </a>
         </ul>
         <ul>
-
-            <a th:href="@{/viewAllRecipes}>
+            <a th:href="@{/viewAllRecipes}">
                 <input class="menuButton" type="button" value = "Все рецепты">
             </a>
 
@@ -69,7 +68,7 @@
                 <th>Белки, г на 100 г</th>
                 <th>Жиры, г на 100 г</th>
                 <th>Углеводы, г на 100 г</th>
-                <th>Описание</th>
+                <th class="descriptionColumn">Описание</th>
             </tr>
             </thead>
             <tbody>
@@ -85,7 +84,7 @@
                 <td><span th:text="${recipe.sumProtein}">Количество белка на 100 г</span></td>
                 <td><span th:text="${recipe.sumFat}">Количество жиров на 100 г</span></td>
                 <td><span th:text="${recipe.sumCarbohydrates}">Количество углеводов на 100 г</span></td>
-                <td><span th:text="${recipe.description}">Описание</span></td>
+                <td class="descriptionColumn"><span th:text="${recipe.description}">Описание</span></td>
             </tr>
             </tbody>
         </table>
@@ -96,28 +95,33 @@
             <table class="addRecipeTable">
                 <caption class="tableName">Добавить новый рецепт</caption>
                 <tr>
-                    <td>Название рецепта</td>
-                    <td><input type="text" name="recipeName" th:field="*{recipeName}"></td>
+                    <td class="rightLabel">Название рецепта</td>
+                    <td colspan="2"><input type="text" name="recipeName" class="inputText" th:field="*{recipeName}"></td>
                 </tr>
                 <tr>
-                    <td>Описание рецепта</td>
-                    <td><textarea name="description" th:field="*{description}"></textarea></td>
+                    <td class="rightLabel">Описание рецепта</td>
+                    <td colspan="2"><textarea name="description" class="inputText" rows="10" th:field="*{description}"></textarea></td>
                 </tr>
                 <tr>
+                    <td></td>
                     <td>Выберите продукт</td>
-                    <td>Введите количество продукта</td>
-                    <td><button type="submit">Добавить</button></td>
+                    <td class="leftLabel">Введите количество продукта</td>
+                    <td></td>
                 </tr>
                 <tr th:each="foodItemList : ${foodItemLists}">
+                    <td></td>
                     <td>
-                        <input list="food-items-list" type="text" name="foodItemName" autocomplete="off">
+                        <input list="food-items-list" type="text" name="foodItemName" autocomplete="off" class="inputText">
                         <datalist id="food-items-list">
                             <option th:each="foodItem : ${foodItems}" th:value="${foodItem.foodItemName}" th:text="${foodItem.foodItemName}"></option>
                         </datalist>
                     </td>
-                    <td>
+                    <td class="leftInput">
                         <input type="number" min="0" name="foodItemQuantity">
                     </td>
+                </tr>
+                <tr>
+                    <td colspan="3"><button type="submit" class="addRecipeButton">Добавить</button></td>
                 </tr>
             </table>
         </form>
@@ -144,8 +148,6 @@
     </div>
 
 </div>
-<ul>
-    <li></li>
-</ul>
+
 </body>
 </html>

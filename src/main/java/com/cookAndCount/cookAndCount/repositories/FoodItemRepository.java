@@ -15,7 +15,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface FoodItemRepository extends CrudRepository<FoodItem, Long> {
 
-    List<FoodItem> findByFoodItemName(String foodItemName);
+    FoodItem findByFoodItemName(String foodItemName);
 
     FoodItem findById(long Id);
 

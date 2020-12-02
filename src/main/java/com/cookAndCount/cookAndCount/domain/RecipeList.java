@@ -1,10 +1,17 @@
 package com.cookAndCount.cookAndCount.domain;
 
+import javax.persistence.*;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
 /**
  * @author patronovskiy
  * @link https://github.com/patronovskiy
  */
-
+@Entity
 public class RecipeList {
 
     public static final String DEFAULT_RECIPE_LIST_NAME = "Мой список";

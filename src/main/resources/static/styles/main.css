@@ -165,7 +165,11 @@ table {
     border-color: darkolivegreen;
     font: 16px "Courier New";
     text-align: center;
-    width: 99%;
+    width: 100%;
+}
+
+.descriptionColumn {
+    min-width: 300px;
 }
 
 .addRecipeTable {
@@ -174,6 +178,11 @@ table {
     border-color: darkolivegreen;
     font: bold 16px "Courier New";
     text-align: center;
+    padding: 20px;
+}
+
+.addRecipeButton {
+    margin: 10px;
 }
 
 .addFoodItemForm {
@@ -184,6 +193,20 @@ table {
     padding: 3px 3px;
     text-align: center;
     width: 99.48%;
+}
+
+.inputText {
+    width: 100%;
+}
+
+.rightLabel {
+    text-align: right;
+}
+
+.leftInput,
+.leftLabel {
+    text-align: left;
+    padding-left: 10px;
 }
 
 .loginForm, .regForm {
@@ -207,4 +230,8 @@ table {
     padding: 10px 10px;
     text-align: right;
     text-decoration: none;
+}
+
+.hidden {
+    display: none;
 }
