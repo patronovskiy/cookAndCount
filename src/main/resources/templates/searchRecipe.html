@@ -29,15 +29,27 @@
             <td colspan="6">Рецепты не найдены</td>
         </tr>
         <tr th:each="recipe : ${searchRecipes}">
-            <td><a href="/viewRecipe?enteredRecipeId=${recipe.recipeId}">
+
+            <td>
+              <a th:href="@{/viewRecipe(enteredRecipeId=${recipe.recipeId})}" href="/viewRecipe.html">
                 <span th:text="${recipe.recipeName}">Название продукта</span>
-            </a>
+              </a>
             </td>
             <td><span th:text="${recipe.sumCalories}">Количество ккал на 100 г</span></td>
             <td><span th:text="${recipe.sumProtein}">Количество белка на 100 г</span></td>
             <td><span th:text="${recipe.sumFat}">Количество жиров на 100 г</span></td>
             <td><span th:text="${recipe.sumCarbohydrates}">Количество углеводов на 100 г</span></td>
             <td><span th:text="${recipe.description}">Описание</span></td>
+            <td>
+                <form method="post" th:action="@{/addRecipeToList}" name="addRecipeToList">
+                    <input name="addingRecipeId" th:value="${recipe.recipeId}" class="hidden">
+                    <!--                                если будет несколько списков-->
+                    <!--                                <select name="recipeListName">-->
+                    <!--                                    <option th:each="recipeList : ${recipeLists}" th:value="${recipeList.recipeListName}"></option>-->
+                    <!--                                </select>-->
+                    <button type="submit">Добавить в список</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

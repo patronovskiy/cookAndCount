@@ -29,7 +29,7 @@ public class UserAccount implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-
+    //todo убрать?
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipeListId")
     private RecipeList recipeList;

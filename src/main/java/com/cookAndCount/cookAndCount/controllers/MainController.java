@@ -7,9 +7,13 @@ import java.util.Map;
 import com.cookAndCount.cookAndCount.domain.FoodItem;
 import com.cookAndCount.cookAndCount.domain.FoodItemsList;
 import com.cookAndCount.cookAndCount.domain.Recipe;
+import com.cookAndCount.cookAndCount.domain.RecipeList;
+import com.cookAndCount.cookAndCount.domain.UserAccount;
 import com.cookAndCount.cookAndCount.repositories.FoodItemRepository;
 import com.cookAndCount.cookAndCount.repositories.FoodItemsListRepository;
+import com.cookAndCount.cookAndCount.repositories.RecipeListRepository;
 import com.cookAndCount.cookAndCount.repositories.RecipeRepository;
+import com.cookAndCount.cookAndCount.repositories.UserAccountRepository;
 import com.cookAndCount.cookAndCount.testingClasses.FoodItemsTestingLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.GsonBuilderUtils;
@@ -38,9 +42,13 @@ public class MainController {
     RecipeRepository recipeRepository;
     @Autowired
     FoodItemsListRepository foodItemsListRepository;
+    @Autowired
+    UserAccountRepository userAccountRepository;
+    @Autowired
+    RecipeListRepository recipeListRepository;
 
     //отображение главной страницы
-    @GetMapping("main")
+    @GetMapping("/main")
     public String main(Map<String, Object> model) {
 
         //загрузка продуктов в бд todo - удалить, это для отладки
@@ -57,7 +65,12 @@ public class MainController {
 //        Recipe recipe = new Recipe("testAuto", "...", foodItemsLists);
 //        recipeRepository.save(recipe);
 
-        RecipesController.getRecipes(recipeRepository, model);
+//        загрузка всех рецептов
+//        RecipesController.getRecipes(recipeRepository, model);
+        //загрузка рецептов из списка пользователя
+        getRecipesFromList(model);
+
+
 
         //создание пустого рецепта и помещение в model
         Recipe recipe = new Recipe("", "", new ArrayList<FoodItemsList>());
@@ -113,7 +126,7 @@ public class MainController {
         return "redirect:/main";
     }
 
-    @PostMapping("/addRecipeTest")
+    @PostMapping("/addRecipe")
     public String addRecipeTest(@RequestParam (name="recipeName") String recipeName,
                                 @RequestParam (name="description") String description,
                                 @RequestParam (name="foodItemName") String[] foodItemNames,
@@ -135,6 +148,17 @@ public class MainController {
         }
         Recipe recipe = new Recipe(recipeName, description, foodItemsLists);
         recipeRepository.save(recipe);
+
+        //при добавлении пользователем рецепта, этот рецепт автоматически добавляется в список пользователя
+        //todo - вынести в отдльный метод добавление в список
+        String username = LoginController.getCurrentUsername();
+        UserAccount user = userAccountRepository.findByUsername(username);
+        Long userId = user.getUserId();
+        RecipeList recipeList = new RecipeList();
+        recipeList.setOwnerId(userId);
+        recipeList.setRecipeListName(RecipeList.DEFAULT_RECIPE_LIST_NAME);
+        recipeList.setRecipe(recipe);
+        recipeListRepository.save(recipeList);
 
         return "redirect:/main";
     }
@@ -180,6 +204,21 @@ public class MainController {
         return "viewRecipe";
     }
 
+    public void getRecipesFromList(Map<String, Object> model) {
+        String username = LoginController.getCurrentUsername();
+        UserAccount user = userAccountRepository.findByUsername(username);
+        Long userId = user.getUserId();
+
+        ArrayList<RecipeList> recipeLists = recipeListRepository.findAllByOwnerId(userId);
+        ArrayList<Recipe> recipes = new ArrayList<>();
+        for (RecipeList recipeList : recipeLists) {
+            Recipe recipe = recipeList.getRecipe();
+            recipes.add(recipe);
+        }
+        model.put("userRecipes", recipes);
+
+    }
+
 
     @GetMapping("/viewFoodItem")
     public String viewFoodItem(@RequestParam ("enteredFoodItemId") String enteredFoodItemId,
@@ -190,9 +229,5 @@ public class MainController {
         model.put("foodItemRepository", foodItemRepository);
         return "viewFoodItem";
     }
-
-
-    //TODO реализовать методы searchFoodItemByName, viewFoodItem
-
 
 }

@@ -1,7 +1,6 @@
 package com.cookAndCount.cookAndCount.controllers;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import com.cookAndCount.cookAndCount.domain.Recipe;
 import com.cookAndCount.cookAndCount.domain.RecipeList;
@@ -12,15 +11,15 @@ import com.cookAndCount.cookAndCount.repositories.UserAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author patronovskiy
  * @link https://github.com/patronovskiy
  */
 @Controller
-public class RecipesController {
-    @Autowired
-    RecipeRepository recipeRepository;
+public class RecipeListController {
 
     @Autowired
     UserAccountRepository userAccountRepository;
@@ -28,21 +27,29 @@ public class RecipesController {
     @Autowired
     RecipeListRepository recipeListRepository;
 
-    @GetMapping("/viewAllRecipes")
-    public String viewRecipes(Map<String, Object> model) {
-        getRecipes(recipeRepository, model);
+    @Autowired
+    RecipeRepository recipeRepository;
 
+    @PostMapping("/addRecipeToList")
+    public String addRecipeToList(@RequestParam(name="addingRecipeId") String addingRecipeId,
+                                  Map<String, Object> model) {
         String username = LoginController.getCurrentUsername();
         UserAccount user = userAccountRepository.findByUsername(username);
-        ArrayList<RecipeList> recipeLists = recipeListRepository.findAllByOwnerId(user.getUserId());
-        model.put("recipeLists", recipeLists);
+        Long userId = user.getUserId();
 
-        return "/recipes";
+        Recipe recipe = recipeRepository.findById(Long.parseLong(addingRecipeId));
+        RecipeList recipeList = new RecipeList();
+        recipeList.setOwnerId(userId);
+        recipeList.setRecipeListName(RecipeList.DEFAULT_RECIPE_LIST_NAME);
+
+        recipeList.setRecipe(recipe);
+        recipeListRepository.save(recipeList);
+
+        return "redirect:/main";
     }
 
-    //отображение рецептов из БД
-    public static void getRecipes(RecipeRepository recipeRepository, Map<String, Object> model) {
-        List<Recipe> recipes = recipeRepository.findAll();
-        model.put("recipes", recipes);
+    @GetMapping("/addRecipeToListButtonHandle")
+    public void addRecipeToListButtonHandle(Map<String, Object> model) {
+
     }
 }
