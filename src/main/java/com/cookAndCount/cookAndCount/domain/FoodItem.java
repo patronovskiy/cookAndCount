@@ -6,21 +6,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import java.util.Collection;
 import java.util.List;
-import org.springframework.data.repository.CrudRepository;
 
 /**
  * @author patronovskiy
  * @link https://github.com/patronovskiy
+ * @author NuclearKat369
+ * @link https://github.com/NuclearKat369
  */
 
 //класс, описывающий продукт
 @Entity
-//@Table("foodItems")
 public class FoodItem {
     //первичный ключ - id - генерируется автоматически
     @Id
@@ -30,13 +27,10 @@ public class FoodItem {
     //наименование продукта
     private String foodItemName;
     //КБЖУ продукта на 100 г
-
     private double calories;
     private double protein;
     private double fat;
     private double carbohydrates;
-
-
     private int glycemicIndex;
 
     @OneToMany(targetEntity = FoodItemsList.class, cascade = CascadeType.ALL)

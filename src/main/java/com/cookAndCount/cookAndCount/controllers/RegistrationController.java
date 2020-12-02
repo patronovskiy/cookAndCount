@@ -2,12 +2,10 @@ package com.cookAndCount.cookAndCount.controllers;
 
 import java.util.Collections;
 import java.util.Map;
-import com.cookAndCount.cookAndCount.domain.RecipeList;
 import com.cookAndCount.cookAndCount.domain.Role;
 import com.cookAndCount.cookAndCount.domain.UserAccount;
 import com.cookAndCount.cookAndCount.repositories.RecipeListRepository;
 import com.cookAndCount.cookAndCount.repositories.UserAccountRepository;
-import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -18,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * @author patronovskiy
  * @link https://github.com/patronovskiy
+ * @author NuclearKat369
+ * @link https://github.com/NuclearKat369
  */
 
 @Controller
@@ -53,14 +53,8 @@ public class RegistrationController {
         UserAccount newUser = new UserAccount(username, passwordEncoder.encode(password), email);
         newUser.setIsActive(true);
         newUser.setRoles(Collections.singleton(Role.USER));
-        //список рецептов по умолчанию
-//        RecipeList recipeList = new RecipeList();
-//        recipeList.setRecipeListName(RecipeList.DEFAULT_RECIPE_LIST_NAME);
-//        recipeListRepository.save(recipeList);
-//        newUser.setRecipeList(recipeList);
         userAccountRepository.save(newUser);
-//        recipeList.setOwnerId(newUser.getUserId());
-//        recipeListRepository.save(recipeList);
+
         return "redirect:/login";
     }
 

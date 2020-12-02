@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * @author patronovskiy
  * @link https://github.com/patronovskiy
+ * @author NuclearKat369
+ * @link https://github.com/NuclearKat369
  */
+
 @Controller
 public class RecipeListController {
 
@@ -31,8 +34,7 @@ public class RecipeListController {
     RecipeRepository recipeRepository;
 
     @PostMapping("/addRecipeToList")
-    public String addRecipeToList(@RequestParam(name="addingRecipeId") String addingRecipeId,
-                                  Map<String, Object> model) {
+    public String addRecipeToList(@RequestParam(name="addingRecipeId") String addingRecipeId) {
         String username = LoginController.getCurrentUsername();
         UserAccount user = userAccountRepository.findByUsername(username);
         Long userId = user.getUserId();
@@ -48,8 +50,4 @@ public class RecipeListController {
         return "redirect:/main";
     }
 
-    @GetMapping("/addRecipeToListButtonHandle")
-    public void addRecipeToListButtonHandle(Map<String, Object> model) {
-
-    }
 }

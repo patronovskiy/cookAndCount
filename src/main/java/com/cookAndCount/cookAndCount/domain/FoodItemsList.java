@@ -1,43 +1,24 @@
 package com.cookAndCount.cookAndCount.domain;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 import com.cookAndCount.cookAndCount.repositories.FoodItemRepository;
-import org.springframework.data.annotation.Transient;
 
 /**
  * @author patronovskiy
  * @link https://github.com/patronovskiy
+ * @author NuclearKat369
+ * @link https://github.com/NuclearKat369
  */
-
-
 
 @Entity
 public class FoodItemsList {
 
-
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     Long foodItemListId;
-
-//    @ManyToOne(targetEntity = FoodItem.class, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "foodItemList_fk", referencedColumnName = "foodItemId")
-//    private FoodItem foodItem;
 
     private double calories;
     private double protein;
@@ -47,13 +28,6 @@ public class FoodItemsList {
     private long foodItemId;
 
     private int foodItemQuantity;
-
-
-
-
-//    //!!!
-//    @ManyToOne
-//    private FoodItem foodItem;
 
     public FoodItemsList() {
     }
@@ -130,20 +104,3 @@ public class FoodItemsList {
     }
 
 }
-
-//встраиваемый класс для реализации составного ключа
-//@Embeddable
-//class FoodItemListId implements Serializable {
-//    @OneToMany
-//    @JoinColumn(name = "")
-//    private Collection<FoodItem>;
-//    Long recipeId;
-
-//    public FoodItemListId() {
-//    }
-//
-//    FoodItemListId(Long foodItemId, Long recipeId) {
-//        this.foodItemId = foodItemId;
-//        this.recipeId=recipeId;
-//    }
-//};

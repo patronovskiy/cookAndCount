@@ -5,6 +5,8 @@ import org.springframework.security.core.GrantedAuthority;
 /**
  * @author patronovskiy
  * @link https://github.com/patronovskiy
+ * @author NuclearKat369
+ * @link https://github.com/NuclearKat369
  */
 
 public enum Role implements GrantedAuthority {

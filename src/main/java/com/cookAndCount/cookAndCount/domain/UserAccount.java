@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 /**
  * @author patronovskiy
  * @link https://github.com/patronovskiy
+ * @author NuclearKat369
+ * @link https://github.com/NuclearKat369
  */
 
 @Entity
@@ -29,7 +31,6 @@ public class UserAccount implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    //todo убрать?
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipeListId")
     private RecipeList recipeList;

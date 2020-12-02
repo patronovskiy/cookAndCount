@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 /**
  * @author patronovskiy
  * @link https://github.com/patronovskiy
+  * @author NuclearKat369
+  * @link https://github.com/NuclearKat369
  */
+
 @Controller
 public class LoginController {
     @GetMapping("/login")

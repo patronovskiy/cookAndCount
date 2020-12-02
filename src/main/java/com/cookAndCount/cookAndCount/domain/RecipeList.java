@@ -10,7 +10,10 @@ import javax.persistence.OneToOne;
 /**
  * @author patronovskiy
  * @link https://github.com/patronovskiy
+ * @author NuclearKat369
+ * @link https://github.com/NuclearKat369
  */
+
 @Entity
 public class RecipeList {
 
@@ -69,5 +72,4 @@ public class RecipeList {
     public Long getRecipeId() {
         return this.recipe.getRecipeId();
     }
-
 }
