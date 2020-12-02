@@ -1,5 +1,6 @@
 package com.cookAndCount.cookAndCount.repositories;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.cookAndCount.cookAndCount.domain.FoodItem;
 import com.cookAndCount.cookAndCount.domain.Recipe;
@@ -22,5 +23,6 @@ public interface FoodItemRepository extends CrudRepository<FoodItem, Long> {
 
     @Query("SELECT r FROM FoodItem r WHERE UPPER(r.foodItemName) LIKE CONCAT('%',UPPER(:foodItemName),'%')")
     ArrayList<FoodItem> findAllByPartOfName(@Param("foodItemName") String foodItemName);
+
 
 }

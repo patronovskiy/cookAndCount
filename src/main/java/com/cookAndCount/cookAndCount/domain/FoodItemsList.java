@@ -59,13 +59,13 @@ public class FoodItemsList {
     }
 
     public FoodItemsList(FoodItem foodItem, int foodItemQuantity) {
-       foodItem.addFoodItemList(this);
-       this.foodItemId = foodItem.getFoodItemId();
-       this.calories = foodItem.getCalories()*foodItemQuantity/100;
-       this.fat = foodItem.getFat()*foodItemQuantity/100;
-       this.carbohydrates = foodItem.getCarbohydrates()*foodItemQuantity/100;
-       this.protein = foodItem.getProtein()*foodItemQuantity/100;
-       this.foodItemQuantity = foodItemQuantity;
+        foodItem.addFoodItemList(this);
+        this.foodItemId = foodItem.getFoodItemId();
+        this.calories = foodItem.getCalories()*foodItemQuantity/100;
+        this.fat = foodItem.getFat()*foodItemQuantity/100;
+        this.carbohydrates = foodItem.getCarbohydrates()*foodItemQuantity/100;
+        this.protein = foodItem.getProtein()*foodItemQuantity/100;
+        this.foodItemQuantity = foodItemQuantity;
     }
 
     public Long getFoodItemListId() {
