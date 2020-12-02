@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 /**
  * @author patronovskiy
  * @link https://github.com/patronovskiy
+ * @author NuclearKat369
+ * @link https://github.com/NuclearKat369
  */
 
 @Entity
@@ -28,7 +30,6 @@ public class UserAccount implements UserDetails {
     @CollectionTable(name="user_role", joinColumns = @JoinColumn(name="user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
-
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipeListId")

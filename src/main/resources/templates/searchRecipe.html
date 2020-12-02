@@ -5,6 +5,8 @@
         <title>Поиск рецептов</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
+    <link rel="stylesheet" type="text/css"
+          href="/styles/main.css" data-th-href="@{/styles/main.css}" />
 </head>
 <body>
 <h1>Поиск рецептов по запросу "<span th:text="${searchRecipeName}"></span>"</h1>
@@ -13,7 +15,7 @@
     <table>
         <caption>По вашему запросу найдены рецепты:</caption>
         <thead>
-        <tr>
+        <tr class="header">
             <th>Название</th>
             <th>Ккал на 100 г</th>
             <th>Белки, г на 100 г</th>
@@ -27,18 +29,31 @@
             <td colspan="6">Рецепты не найдены</td>
         </tr>
         <tr th:each="recipe : ${searchRecipes}">
-            <td><a href="/viewRecipe?enteredRecipeId=${recipe.recipeId}"><span th:text="${recipe.recipeName}">Название продукта</span></a></td>
+
+            <td>
+              <a th:href="@{/viewRecipe(enteredRecipeId=${recipe.recipeId})}" href="/viewRecipe.html">
+                <span th:text="${recipe.recipeName}">Название продукта</span>
+              </a>
+            </td>
             <td><span th:text="${recipe.sumCalories}">Количество ккал на 100 г</span></td>
             <td><span th:text="${recipe.sumProtein}">Количество белка на 100 г</span></td>
             <td><span th:text="${recipe.sumFat}">Количество жиров на 100 г</span></td>
             <td><span th:text="${recipe.sumCarbohydrates}">Количество углеводов на 100 г</span></td>
             <td><span th:text="${recipe.description}">Описание</span></td>
+            <td>
+                <form method="post" th:action="@{/addRecipeToList}" name="addRecipeToList">
+                    <input name="addingRecipeId" th:value="${recipe.recipeId}" class="hidden">
+                    <!--                                если будет несколько списков-->
+                    <!--                                <select name="recipeListName">-->
+                    <!--                                    <option th:each="recipeList : ${recipeLists}" th:value="${recipeList.recipeListName}"></option>-->
+                    <!--                                </select>-->
+                    <button type="submit">Добавить в список</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
 </div>
-
-
 
 </div>
 </body>

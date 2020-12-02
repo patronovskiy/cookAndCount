@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 /**
  * @author patronovskiy
  * @link https://github.com/patronovskiy
+ * @author NuclearKat369
+ * @link https://github.com/NuclearKat369
  */
+
 @Controller
 public class ProductsController {
     @Autowired
@@ -20,7 +23,7 @@ public class ProductsController {
     @GetMapping("/products")
     public String viewProducts(Map<String, Object> model) {
         getFoodItems(foodItemRepository, model);
-        return "/products";
+        return "foodItem";
     }
 
     //отображение продуктов из БД

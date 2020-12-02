@@ -3,17 +3,19 @@
 <head>
     <title>Cook and count - Регистрация</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css"
+          href="/styles/main.css" data-th-href="@{/styles/main.css}" />
 </head>
 <body>
 <h1>Регистрация</h1>
 <div th:if="${message}">
     <span th:text="${message}"></span>
 </div>
-<form th:action="@{/registration}" method="post">
+<form class="regForm" th:action="@{/registration}" method="post">
     <div><label> Логин: <input type="text" name="username"/> </label></div>
     <div><label> Пароль: <input type="password" name="password"/> </label></div>
     <div><label> Email: <input type="email" name="email"/> </label></div>
-    <div><input type="submit" value="Зарегистрироваться"/></div>
+    <div><input class="regButton" type="submit" value="Зарегистрироваться"/></div>
 </form>
 </body>
 </html>

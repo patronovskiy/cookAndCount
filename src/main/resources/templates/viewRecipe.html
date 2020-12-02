@@ -5,6 +5,8 @@
         <title>Просмотр рецепта</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
+    <link rel="stylesheet" type="text/css"
+          href="/styles/main.css" data-th-href="@{/styles/main.css}" />
 </head>
 <body>
     <h1 class="header1">Просмотр рецепта "<span th:text="${foundRecipe.recipeName}"></span>"</h1>
@@ -12,12 +14,13 @@
         <table>
         <caption><h2 th:text="${foundRecipe.recipeName}">Рецепт</h2></caption>
         <thead>
-        <tr>
+        <tr class="header">
             <th>Название</th>
             <th>Ккал на 100 г</th>
             <th>Белки, г на 100 г</th>
             <th>Жиры, г на 100 г</th>
             <th>Углеводы, г на 100 г</th>
+            <th>Добавить в свой список</th>
         </tr>
         </thead>
         <tbody>
@@ -27,6 +30,16 @@
             <td><span th:text="${foundRecipe.sumProtein}">Количество белка на 100 г</span></td>
             <td><span th:text="${foundRecipe.sumFat}">Количество жиров на 100 г</span></td>
             <td><span th:text="${foundRecipe.sumCarbohydrates}">Количество углеводов на 100 г</span></td>
+            <td>
+                <form method="post" th:action="@{/addRecipeToList}" name="addRecipeToList">
+                    <input name="addingRecipeId" th:value="${foundRecipe.recipeId}" class="hidden">
+                    <!--                                если будет несколько списков-->
+                    <!--                                <select name="recipeListName">-->
+                    <!--                                    <option th:each="recipeList : ${recipeLists}" th:value="${recipeList.recipeListName}"></option>-->
+                    <!--                                </select>-->
+                    <button type="submit">Добавить в список</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

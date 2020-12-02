@@ -1,13 +1,42 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Cook and count - Продукт не найден</title>
+    <title>Cook and count</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css"
           href="/styles/main.css" data-th-href="@{/styles/main.css}" />
 </head>
 <body>
-    <h1>Ошибка - нет такого продукта</h1>
+<h1>Cook and Count</h1>
+<h2 th:inline="text">Приветсвуем, [[${#httpServletRequest.remoteUser}]]!</h2>
+
+<div class="menuBarSection">
+    <list class="menuBar">
+        <ul>
+            <a href="/main">Главная</a>
+        </ul>
+        <ul>
+            <a href="/newRecipe">Добавить рецепт</a>
+        </ul>
+        <ul>
+            <a href="/recipeLists">Мои списки</a>
+        </ul>
+        <ul>
+            <a href="/products">Все продукты</a>
+        </ul>
+        <ul>
+            <a href="/recipes">Все рецепты</a>
+        </ul>
+        <ul>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Выйти"/>
+            </form>
+        </ul>
+    </list>
+</div>
+
+<div class="productsSection">
+
     <div class="addFoodItemForm">
         <span>Добавить продукт</span>
         <form method="post" th:action="@{/addFoodItem}">
@@ -19,5 +48,8 @@
             <button type="submit">Добавить</button>
         </form>
     </div>
+</div>
+
+
 </body>
 </html>

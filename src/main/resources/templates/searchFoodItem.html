@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head>
+        <title>Поиск продуктов</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <link rel="stylesheet" type="text/css"
+          href="/styles/main.css" data-th-href="@{/styles/main.css}" />
+</head>
+<body>
+<h1>Поиск продуктов по запросу "<span th:text="${searchFoodItemName}"></span>"</h1>
+<div class="foodItems">
+    <div class="FoodItemsList">
+    <table>
+        <caption>По вашему запросу найдены продукты:</caption>
+        <thead>
+        <tr class="header">
+            <th>Название</th>
+            <th>Ккал на 100 г</th>
+            <th>Белки, г на 100 г</th>
+            <th>Жиры, г на 100 г</th>
+            <th>Углеводы, г на 100 г</th>
+            <th>Описание</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${searchFoodItems.empty}">
+            <td colspan="6">Продукты не найдены</td>
+        </tr>
+        <tr th:each="foodItem : ${searchFoodItems}">
+            <td><a href="/viewFoodItem?enteredFoodItemId=${foodItem.foodItemId}">
+                <span th:text="${foodItem.foodItemName}">Название продукта</span>
+            </a>
+            </td>
+            <td><span th:text="${foodItem.calories}">Количество ккал на 100 г</span></td>
+            <td><span th:text="${foodItem.protein}">Количество белка на 100 г</span></td>
+            <td><span th:text="${foodItem.fat}">Количество жиров на 100 г</span></td>
+            <td><span th:text="${foodItem.carbohydrates}">Количество углеводов на 100 г</span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</div>
+</body>
+</html>

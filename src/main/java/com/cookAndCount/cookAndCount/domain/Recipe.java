@@ -8,6 +8,8 @@ import java.util.Map;
 /**
  * @author patronovskiy
  * @link https://github.com/patronovskiy
+ * @author NuclearKat369
+ * @link https://github.com/NuclearKat369
  */
 
 @Entity
@@ -34,22 +36,18 @@ public class Recipe {
     public Recipe() {
     }
 
-
     public Recipe(String recipeName, String description, List<FoodItemsList> ingredients){
         this.recipeName = recipeName;
         this.description = description;
         this.foodItemsLists = ingredients;
-
 
         for (FoodItemsList ingredient : ingredients) {
             this.sumCalories += ingredient.getCalories();
             this.sumProtein += ingredient.getProtein();
             this.sumFat += ingredient.getFat();
             this.sumCarbohydrates += ingredient.getCarbohydrates();
-            //todo save?
         }
     }
-
 
     public Long getRecipeId() {
         return recipeId;

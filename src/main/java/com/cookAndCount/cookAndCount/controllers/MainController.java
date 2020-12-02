@@ -1,30 +1,31 @@
 package com.cookAndCount.cookAndCount.controllers;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import com.cookAndCount.cookAndCount.domain.FoodItem;
 import com.cookAndCount.cookAndCount.domain.FoodItemsList;
 import com.cookAndCount.cookAndCount.domain.Recipe;
+import com.cookAndCount.cookAndCount.domain.RecipeList;
+import com.cookAndCount.cookAndCount.domain.UserAccount;
 import com.cookAndCount.cookAndCount.repositories.FoodItemRepository;
 import com.cookAndCount.cookAndCount.repositories.FoodItemsListRepository;
+import com.cookAndCount.cookAndCount.repositories.RecipeListRepository;
 import com.cookAndCount.cookAndCount.repositories.RecipeRepository;
-import com.cookAndCount.cookAndCount.testingClasses.FoodItemsTestingLoader;
+import com.cookAndCount.cookAndCount.repositories.UserAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.WebRequest;
 
 /**
  * @author patronovskiy
  * @link https://github.com/patronovskiy
+ * @author NuclearKat369
+ * @link https://github.com/NuclearKat369
  */
+
 @Controller
 public class MainController {
 
@@ -38,26 +39,18 @@ public class MainController {
     RecipeRepository recipeRepository;
     @Autowired
     FoodItemsListRepository foodItemsListRepository;
+    @Autowired
+    UserAccountRepository userAccountRepository;
+    @Autowired
+    RecipeListRepository recipeListRepository;
 
     //отображение главной страницы
-    @GetMapping("main")
+    @GetMapping("/main")
     public String main(Map<String, Object> model) {
-
-        //загрузка продуктов в бд todo - удалить, это для отладки
-//         boolean isProductsLoaded = false;
-//        FoodItemsTestingLoader.fillFoodItemsDB(isProductsLoaded, foodItemRepository);
 
         ProductsController.getFoodItems(foodItemRepository, model);
 
-        //todo - отладка - удалить - добавление рецепта
-//        FoodItem foodItem = foodItemRepository.findById(1);
-//        ArrayList<FoodItemsList> foodItemsLists = new ArrayList<>();
-//        FoodItemsList foodItemsList = new FoodItemsList(foodItem, 200);
-//        foodItemsLists.add(foodItemsList);
-//        Recipe recipe = new Recipe("testAuto", "...", foodItemsLists);
-//        recipeRepository.save(recipe);
-
-        RecipesController.getRecipes(recipeRepository, model);
+        getRecipesFromList(model);
 
         //создание пустого рецепта и помещение в model
         Recipe recipe = new Recipe("", "", new ArrayList<FoodItemsList>());
@@ -68,7 +61,6 @@ public class MainController {
         }
         model.put("foodItemLists", foodItemsLists);
 
-
         return "main";
     }
 
@@ -76,7 +68,6 @@ public class MainController {
     public String main() {
         return "redirect:/main";
     }
-
 
     //методы для отображения элементов на главной странице
 
@@ -106,14 +97,7 @@ public class MainController {
         return "redirect:/main";
     }
 
-    @GetMapping("addRow")
-    public String addRow(Model model) {
-        //не работает todo
-        ingredientsCount++;
-        return "redirect:/main";
-    }
-
-    @PostMapping("/addRecipeTest")
+    @PostMapping("/addRecipe")
     public String addRecipeTest(@RequestParam (name="recipeName") String recipeName,
                                 @RequestParam (name="description") String description,
                                 @RequestParam (name="foodItemName") String[] foodItemNames,
@@ -136,9 +120,22 @@ public class MainController {
         Recipe recipe = new Recipe(recipeName, description, foodItemsLists);
         recipeRepository.save(recipe);
 
+        //при добавлении пользователем рецепта, этот рецепт автоматически добавляется в список пользователя
+        //todo - вынести в отдльный метод добавление в список
+        String username = LoginController.getCurrentUsername();
+        UserAccount user = userAccountRepository.findByUsername(username);
+        Long userId = user.getUserId();
+        RecipeList recipeList = new RecipeList();
+        recipeList.setOwnerId(userId);
+        recipeList.setRecipeListName(RecipeList.DEFAULT_RECIPE_LIST_NAME);
+        recipeList.setRecipe(recipe);
+        recipeListRepository.save(recipeList);
+
         return "redirect:/main";
     }
 
+    //ПОИСК РЕЦЕПТОВ И ПРОДУКТОВ
+    //поиск рецептов по части названия
     @PostMapping("/searchRecipeByName")
     public String searchRecipeByName(@RequestParam ("recipeName") String recipeName,
                                      Map<String, Object> model) {
@@ -149,6 +146,19 @@ public class MainController {
 
         return "searchRecipe";
     }
+
+    //поиск продукта по части названия
+    @PostMapping("/searchFoodItemByName")
+    public String searchFoodItemByName(@RequestParam ("foodItemName") String foodItemName,
+                                     Map<String, Object> model) {
+
+        ArrayList<FoodItem> foodItems = foodItemRepository.findAllByPartOfName(foodItemName);
+        model.put("searchFoodItemName", foodItemName);
+        model.put("searchFoodItems", foodItems);
+
+        return "searchFoodItem";
+    }
+
 
     @GetMapping("/viewRecipe")
     public String viewRecipe(@RequestParam ("enteredRecipeId") String enteredId,
@@ -165,7 +175,30 @@ public class MainController {
         return "viewRecipe";
     }
 
-    //TODO реализовать методы searchFoodItemByName, viewFoodItem
+    public void getRecipesFromList(Map<String, Object> model) {
+        String username = LoginController.getCurrentUsername();
+        UserAccount user = userAccountRepository.findByUsername(username);
+        Long userId = user.getUserId();
 
+        ArrayList<RecipeList> recipeLists = recipeListRepository.findAllByOwnerId(userId);
+        ArrayList<Recipe> recipes = new ArrayList<>();
+        for (RecipeList recipeList : recipeLists) {
+            Recipe recipe = recipeList.getRecipe();
+            recipes.add(recipe);
+        }
+        model.put("userRecipes", recipes);
+
+    }
+
+
+    @GetMapping("/viewFoodItem")
+    public String viewFoodItem(@RequestParam ("enteredFoodItemId") String enteredFoodItemId,
+                             Map<String, Object> model) {
+        FoodItem foundFoodItem = foodItemRepository.findById(Long.parseLong(enteredFoodItemId));
+
+        model.put("foundFoodItem", foundFoodItem);
+        model.put("foodItemRepository", foodItemRepository);
+        return "viewFoodItem";
+    }
 
 }

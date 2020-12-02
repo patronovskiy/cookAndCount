@@ -1,8 +1,8 @@
 package com.cookAndCount.cookAndCount.repositories;
 
-import java.util.ArrayList;
 import com.cookAndCount.cookAndCount.domain.RecipeList;
 import org.springframework.data.repository.CrudRepository;
+import java.util.List;
 
 /**
  * @author patronovskiy
@@ -11,9 +11,10 @@ import org.springframework.data.repository.CrudRepository;
  * @link https://github.com/NuclearKat369
  */
 
-public interface RecipeListRepository extends CrudRepository<RecipeList, Long> {
+public interface RecipeListId extends CrudRepository<RecipeList, Long> {
+//    List<RecipeList> findByRecipeListName(String recipeListName);
 
-    ArrayList<RecipeList> findAllByOwnerId(Long ownerId);
+    RecipeList findById(long Id);
 
-    boolean existsByOwnerId(Long ownerId);
+    List<RecipeList> findAll();
 }

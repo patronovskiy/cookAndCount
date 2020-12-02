@@ -1,5 +1,237 @@
+body{
+    background-color: whitesmoke;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 99vw;
+}
+
+
+h1 {
+    font: bold 50px "Courier New";
+    -webkit-text-stroke: 1px white;
+    /*background-color: mistyrose;*/
+    background: url("../logos/headerlogo.png") repeat center;
+    background-size: cover;
+    border-style: double;
+    border-color: gainsboro;
+    border-width: 10px;
+    text-align: center;
+}
+
+h2 {
+    font: bold 30px "Courier New";
+    background-color: mistyrose;
+    border-style: double;
+    border-color: gainsboro;
+    border-width: 6px;
+}
+
+button {
+    justify-self: baseline;
+    background-color: gainsboro;
+    color: #556B2F;
+    font: bold 20px "Courier New";
+    padding: 3px 3px;
+    text-align: center;
+    text-decoration: none;
+}
+
+a:link {
+    background-color: ivory;
+    color: darkolivegreen;
+    font: bold 16px "Courier New";
+    position: center;
+    text-align: center;
+    text-decoration: underline;
+}
+
+a:visited {
+    background-color: ivory;
+    color: royalblue;
+    font: bold 16px "Courier New";
+    position: center;
+    text-align: center;
+    text-decoration: underline;
+}
+
+caption {
+
+    background-image: linear-gradient(to bottom, antiquewhite, mistyrose);
+    border-style: solid;
+    border-color: gainsboro;
+    font: bold 24px "Courier New";
+    text-align: center;
+    width: 98.5vw;
+}
+
+input{
+    font: bold 16px "Courier New";
+}
+
+table {
+    background-color: whitesmoke;
+    border-style: solid;
+    border-color: darkolivegreen;
+    font: 16px "Courier New";
+    text-align: center;
+    width: 99%;
+}
+
+
 .menuBar {
     display: inline-flex;
+    justify-content: center;
+    background-image: linear-gradient(to bottom, mistyrose, antiquewhite);
+    border-style: solid;
+    border-color: gainsboro;
+    font: bold 20px "Courier New";
+    width: 100%;
+}
 
+.buttonExit {
+     background-color: #FF6762;
+     color: black;
+     font: bold 20px "Courier New";
+     padding: 10px 10px;
+     text-align: center;
+     text-decoration: none;
+ }
+
+.menuButton {
+    background-color: #556B2F;
+    color: white;
+    font: 20px "Courier New";
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.buttonSearch {
+    background-image: radial-gradient(ellipse, #ffffff, #C0D49F);
+    color: black;
+    font: bold 20px "Courier New";
+    padding: 3px 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.tableName {
+    background-color: transparent;
+    border-style: solid;
+    border-color: gainsboro;
+    font: bold 24px "Courier New";
+}
+
+.recipesSection{
+    padding: 3px 3px;
+    width: 100%;
+}
+
+.searchRecipeSection {
     background-color: antiquewhite;
+    border-style: solid;
+    border-color: gainsboro;
+    color: black;
+    font: bold 15px "Courier New";
+    margin: inherit;
+    text-align: right;
+    width: 98.5vw;
+}
+
+.RecipesListSection {
+    display: flex;
+    justify-content: center;
+    background-image: linear-gradient(180deg, white, antiquewhite);
+    margin: inherit;
+    width: 98.5vw;
+}
+
+.addRecipeSection {
+    display: flex;
+    justify-content: center;
+    background-image: radial-gradient(ellipse, white, antiquewhite);
+    width: 98.5vw;
+}
+
+.header {
+    font: bold 20px "Courier New";
+}
+
+.myRecipesTable {
+    background-color: whitesmoke;
+    border-style: solid;
+    border-color: darkolivegreen;
+    font: 16px "Courier New";
+    text-align: center;
+    width: 100%;
+}
+
+.descriptionColumn {
+    min-width: 300px;
+}
+
+.addRecipeTable {
+    background-color: whitesmoke;
+    border-style: solid;
+    border-color: darkolivegreen;
+    font: bold 16px "Courier New";
+    text-align: center;
+    padding: 20px;
+}
+
+.addRecipeButton {
+    margin: 10px;
+}
+
+.addFoodItemForm {
+    background-color: whitesmoke;
+    border-style: solid;
+    border-color: darkolivegreen;
+    font: bold 24px "Courier New";
+    padding: 3px 3px;
+    text-align: center;
+    width: 99.48%;
+}
+
+.inputText {
+    width: 100%;
+}
+
+.rightLabel {
+    text-align: right;
+}
+
+.leftInput,
+.leftLabel {
+    text-align: left;
+    padding-left: 10px;
+}
+
+.loginForm, .regForm {
+    background-color: antiquewhite;
+    border-style: solid;
+    border-color: gainsboro;
+    color: black;
+    font: bold 30px "Courier New";
+    margin: inherit;
+    text-align: right;
+}
+
+.loginInput{
+    font: bold 24px "Courier New";
+}
+
+.buttonEnter,.regButton{
+    background-color: darkolivegreen;
+    color: white;
+    font: bold 30px "Courier New";
+    padding: 10px 10px;
+    text-align: right;
+    text-decoration: none;
+}
+
+.hidden {
+    display: none;
 }

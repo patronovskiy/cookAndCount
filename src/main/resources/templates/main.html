@@ -1,35 +1,48 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Cook and count</title>
+    <title>Список продуктов</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css"
           href="/styles/main.css" data-th-href="@{/styles/main.css}" />
 </head>
 <body>
+
+
 <h1>Cook and Count</h1>
-<h2 th:inline="text">Приветсвуем, [[${#httpServletRequest.remoteUser}]]!</h2>
+<h2 th:inline="text">Приветствуем, [[${#httpServletRequest.remoteUser}]]!</h2>
 
 <div class="menuBarSection">
     <list class="menuBar">
+<!--        <ul>-->
+<!--            <a href="/newRecipe">-->
+<!--                <input class="menuButton" type="button" value = "Добавить рецепт">-->
+<!--            </a>-->
+<!--        </ul>-->
+<!--        <ul>-->
+<!--            <a href="/newProduct">-->
+<!--                <input class="menuButton" type="button" value = "Добавить продукт">-->
+<!--            </a>-->
+<!--        </ul>-->
+<!--        <ul>-->
+<!--            <a href="/recipeLists">-->
+<!--                <input class="menuButton" type="button" value = "Мои списки">-->
+<!--            </a>-->
+<!--        </ul>-->
         <ul>
-            <a href="#">Добавить рецепт</a>
+            <a href="/products">
+                <input class="menuButton" type="button" value = "Все продукты">
+            </a>
         </ul>
         <ul>
-            <a href="#">Добавить продукт</a>
-        </ul>
-        <ul>
-            <a href="#">Мои списки</a>
-        </ul>
-        <ul>
-            <a href="/products">Все продукты</a>
-        </ul>
-        <ul>
-            <a href="/recipes">Все рецепты</a>
+            <a th:href="@{/viewAllRecipes}">
+                <input class="menuButton" type="button" value = "Все рецепты">
+            </a>
+
         </ul>
         <ul>
             <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Выйти"/>
+                <button class="buttonExit" type="submit">Выйти</button>
             </form>
         </ul>
     </list>
@@ -38,31 +51,31 @@
 <div class="recipesSection">
     <div class="searchRecipeSection">
         <form name="searchRecipeForm" method="post" th:action="@{/searchRecipeByName}" >
-            <input name="recipeName" type="text" list="recipeDatalist" placeholder="Начните вводить название рецепта...">
+            <input name="recipeName" type="text" list="recipeDatalist" placeholder="Начните вводить название рецепта..." size="40">
             <datalist id="recipeDatalist">
                 <option th:each=" recipe : ${recipes}" th:value="${recipe.recipeName}" th:text="${recipe.recipeName}"></option>
             </datalist>
-            <button type="submit">Искать рецепт</button>
+            <button class="buttonSearch" type="submit">Искать рецепт</button>
         </form>
     </div>
     <div class="RecipesListSection">
-        <table>
-            <caption>Мои рецепты</caption>
+        <table class="myRecipesTable">
+            <caption class="tableName">Мои рецепты</caption>
             <thead>
-            <tr>
+            <tr class="header">
                 <th>Название</th>
                 <th>Ккал на 100 г</th>
                 <th>Белки, г на 100 г</th>
                 <th>Жиры, г на 100 г</th>
                 <th>Углеводы, г на 100 г</th>
-                <th>Описание</th>
+                <th class="descriptionColumn">Описание</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:if="${recipes.empty}">
+            <tr th:if="${userRecipes.empty}">
                 <td colspan="6">Нет рецептов</td>
             </tr>
-            <tr th:each="recipe : ${recipes}">
+            <tr th:each="recipe : ${userRecipes}">
                 <td><a th:href="@{/viewRecipe(enteredRecipeId=${recipe.recipeId})}" href="/viewRecipe.html">
                     <span th:text="${recipe.recipeName}">Название продукта</span>
                 </a>
@@ -71,38 +84,44 @@
                 <td><span th:text="${recipe.sumProtein}">Количество белка на 100 г</span></td>
                 <td><span th:text="${recipe.sumFat}">Количество жиров на 100 г</span></td>
                 <td><span th:text="${recipe.sumCarbohydrates}">Количество углеводов на 100 г</span></td>
-                <td><span th:text="${recipe.description}">Описание</span></td>
+                <td class="descriptionColumn"><span th:text="${recipe.description}">Описание</span></td>
             </tr>
             </tbody>
         </table>
     </div>
     <div class="addRecipeSection">
-        <form method="post" th:action="@{/addRecipeTest}" th:object="${recipe}">
-            <table>
-                <caption>Добавить новый рецепт</caption>
+
+        <form method="post" th:action="@{/addRecipe}" th:object="${recipe}">
+            <table class="addRecipeTable">
+                <caption class="tableName">Добавить новый рецепт</caption>
                 <tr>
-                    <td>Название рецепта</td>
-                    <td><input type="text" name="recipeName" th:field="*{recipeName}"></td>
+                    <td class="rightLabel">Название рецепта</td>
+                    <td colspan="2"><input type="text" name="recipeName" class="inputText" th:field="*{recipeName}"></td>
                 </tr>
                 <tr>
-                    <td>Описание рецепта</td>
-                    <td><textarea name="description" th:field="*{description}"></textarea></td>
+                    <td class="rightLabel">Описание рецепта</td>
+                    <td colspan="2"><textarea name="description" class="inputText" rows="10" th:field="*{description}"></textarea></td>
                 </tr>
                 <tr>
+                    <td></td>
                     <td>Выберите продукт</td>
-                    <td>Введите количество продукта</td>
-                    <td><input type="submit" th:text="Добавить"></td>
+                    <td class="leftLabel">Введите количество продукта</td>
+                    <td></td>
                 </tr>
                 <tr th:each="foodItemList : ${foodItemLists}">
+                    <td></td>
                     <td>
-                        <input list="food-items-list" type="text" name="foodItemName" autocomplete="off">
+                        <input list="food-items-list" type="text" name="foodItemName" autocomplete="off" class="inputText">
                         <datalist id="food-items-list">
                             <option th:each="foodItem : ${foodItems}" th:value="${foodItem.foodItemName}" th:text="${foodItem.foodItemName}"></option>
                         </datalist>
                     </td>
-                    <td>
-                        <input type="number" name="foodItemQuantity">
+                    <td class="leftInput">
+                        <input type="number" min="0" name="foodItemQuantity">
                     </td>
+                </tr>
+                <tr>
+                    <td colspan="3"><button type="submit" class="addRecipeButton">Добавить</button></td>
                 </tr>
             </table>
         </form>
@@ -119,16 +138,16 @@
     <div class="addFoodItemForm">
         <span>Добавить продукт</span>
         <form method="post" th:action="@{/addFoodItem}">
-            <input type="text" name="foodItemName" placeholder="введите название продукта">
-            <input type="text" name="calories" placeholder="введите количество ккал">
-            <input type="text" name="protein" placeholder="введите количество белков, г">
-            <input type="text" name="fat" placeholder="введите количество жиров, г">
-            <input type="text" name="carbohydrates" placeholder="введите количество углеводов, г">
+            <input type="text" name="foodItemName" placeholder="введите название продукта" size="35">
+            <input type="text" name="calories" placeholder="введите количество ккал" size="35">
+            <input type="text" name="protein" placeholder="введите количество белков, г" size="35">
+            <input type="text" name="fat" placeholder="введите количество жиров, г" size="35">
+            <input type="text" name="carbohydrates" placeholder="введите количество углеводов, г" size="35">
             <button type="submit">Добавить</button>
         </form>
     </div>
-</div>
 
+</div>
 
 </body>
 </html>

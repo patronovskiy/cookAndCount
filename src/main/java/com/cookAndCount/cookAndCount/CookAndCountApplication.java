@@ -5,6 +5,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author patronovskiy
+ * @link https://github.com/patronovskiy
+ * @author NuclearKat369
+ * @link https://github.com/NuclearKat369
+ */
+
 @SpringBootApplication
 public class CookAndCountApplication {
 
