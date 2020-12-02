@@ -163,6 +163,8 @@ public class MainController {
         return "redirect:/main";
     }
 
+    //ПОИСК РЕЦЕПТОВ И ПРОДУКТОВ
+    //поиск рецептов по части названия
     @PostMapping("/searchRecipeByName")
     public String searchRecipeByName(@RequestParam ("recipeName") String recipeName,
                                      Map<String, Object> model) {
@@ -173,6 +175,19 @@ public class MainController {
 
         return "searchRecipe";
     }
+
+    //поиск продукта по части названия
+    @PostMapping("/searchFoodItemByName")
+    public String searchFoodItemByName(@RequestParam ("foodItemName") String foodItemName,
+                                     Map<String, Object> model) {
+
+        ArrayList<FoodItem> foodItems = foodItemRepository.findAllByPartOfName(foodItemName);
+        model.put("searchFoodItemName", foodItemName);
+        model.put("searchFoodItems", foodItems);
+
+        return "searchFoodItem";
+    }
+
 
     @GetMapping("/viewRecipe")
     public String viewRecipe(@RequestParam ("enteredRecipeId") String enteredId,
@@ -204,7 +219,15 @@ public class MainController {
 
     }
 
-    //TODO реализовать методы searchFoodItemByName, viewFoodItem
 
+    @GetMapping("/viewFoodItem")
+    public String viewFoodItem(@RequestParam ("enteredFoodItemId") String enteredFoodItemId,
+                             Map<String, Object> model) {
+        FoodItem foundFoodItem = foodItemRepository.findById(Long.parseLong(enteredFoodItemId));
+
+        model.put("foundFoodItem", foundFoodItem);
+        model.put("foodItemRepository", foodItemRepository);
+        return "viewFoodItem";
+    }
 
 }

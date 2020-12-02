@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Список продуктов</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="'Hello, ' + ${name} + '!'" />
+
+<div>
+    <form method="post">
+        <input type="text" name="recipeName" placeholder="введите название рецепта">
+        <input type="text" name="description" placeholder="введите описание">
+        <button type="submit">Добавить</button>
+    </form>
+</div>
+<ul>
+    <li></li>
+</ul>
+</body>
+</html>

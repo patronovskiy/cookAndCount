@@ -5,5 +5,5 @@ package com.cookAndCount.cookAndCount.domain;
  * @link https://github.com/patronovskiy
  */
 
-public class Recipe {
+public class User {
 }

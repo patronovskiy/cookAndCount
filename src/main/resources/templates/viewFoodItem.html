@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head>
+        <title>Просмотр продукта</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <link rel="stylesheet" type="text/css"
+          href="/styles/main.css" data-th-href="@{/styles/main.css}" />
+</head>
+<body>
+    <h1 class="header1">Просмотр продукта "<span th:text="${foundFoodItem.foodItemName}"></span>"</h1>
+    <div class="viewFoodItemSection">
+        <table>
+        <caption><h2 th:text="${foundFoodItem.foodItemName}">Продукт</h2></caption>
+        <thead>
+        <tr class="header">
+            <th>Название</th>
+            <th>Ккал на 100 г</th>
+            <th>Белки, г на 100 г</th>
+            <th>Жиры, г на 100 г</th>
+            <th>Углеводы, г на 100 г</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><span th:text="${foundFoodItem.foodItemName}">Название продукта</span></td>
+            <td><span th:text="${foundFoodItem.calories}">Количество ккал на 100 г</span></td>
+            <td><span th:text="${foundFoodItem.protein}">Количество белка на 100 г</span></td>
+            <td><span th:text="${foundFoodItem.fat}">Количество жиров на 100 г</span></td>
+            <td><span th:text="${foundFoodItem.carbohydrates}">Количество углеводов на 100 г</span></td>
+        </tr>
+        </tbody>
+    </table>
+
+    </div>
+</body>
+</html>

@@ -1,13 +1,10 @@
 package com.cookAndCount.cookAndCount.domain;
 
-import javax.persistence.*;
-
 /**
  * @author patronovskiy
  * @link https://github.com/patronovskiy
  */
 
-@Entity
 public class RecipeList {
 
     public static final String DEFAULT_RECIPE_LIST_NAME = "Мой список";
@@ -65,4 +62,5 @@ public class RecipeList {
     public Long getRecipeId() {
         return this.recipe.getRecipeId();
     }
+
 }

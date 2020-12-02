@@ -3,7 +3,6 @@ package com.cookAndCount.cookAndCount.testingClasses;
 import java.util.ArrayList;
 import com.cookAndCount.cookAndCount.domain.FoodItem;
 import com.cookAndCount.cookAndCount.domain.FoodItemsList;
-import com.cookAndCount.cookAndCount.testingClasses.RecipeCreationDto;
 import com.cookAndCount.cookAndCount.repositories.FoodItemRepository;
 import com.cookAndCount.cookAndCount.repositories.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +43,7 @@ public class FoodItemsController {
         }
         model.addAttribute("addRecipeForm", addRecipeForm);
 
-        return "products";
+        return "foodItem";
     }
 
     public ArrayList getProductsList() {
