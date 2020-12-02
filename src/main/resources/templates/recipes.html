@@ -3,6 +3,8 @@
     <head>
         <title>Список продуктов</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" type="text/css"
+              href="/styles/main.css" data-th-href="@{/styles/main.css}" />
     </head>
     <body>
         <h1>Все рецепты</h1>
@@ -13,14 +15,14 @@
                     <datalist id="recipeDatalist">
                         <option th:each=" recipe : ${recipes}" th:value="${recipe.recipeName}" th:text="${recipe.recipeName}"></option>
                     </datalist>
-                    <button type="submit">Искать рецепт</button>
+                    <button class="buttonSearch" type="submit">Искать рецепт</button>
                 </form>
             </div>
             <div class="RecipesListSection">
-                <table>
-                    <caption>Мои рецепты</caption>
+                <table class="myRecipesTable">
+                    <caption class="tableName">Мои рецепты</caption>
                     <thead>
-                    <tr>
+                    <tr class="header">
                         <th>Название</th>
                         <th>Ккал на 100 г</th>
                         <th>Белки, г на 100 г</th>

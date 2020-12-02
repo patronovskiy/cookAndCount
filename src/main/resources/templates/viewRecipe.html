@@ -5,6 +5,8 @@
         <title>Просмотр рецепта</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
+    <link rel="stylesheet" type="text/css"
+          href="/styles/main.css" data-th-href="@{/styles/main.css}" />
 </head>
 <body>
     <h1 class="header1">Просмотр рецепта "<span th:text="${foundRecipe.recipeName}"></span>"</h1>
@@ -12,7 +14,7 @@
         <table>
         <caption><h2 th:text="${foundRecipe.recipeName}">Рецепт</h2></caption>
         <thead>
-        <tr>
+        <tr class="header">
             <th>Название</th>
             <th>Ккал на 100 г</th>
             <th>Белки, г на 100 г</th>

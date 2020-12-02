@@ -20,7 +20,7 @@ public class ProductsController {
     @GetMapping("/products")
     public String viewProducts(Map<String, Object> model) {
         getFoodItems(foodItemRepository, model);
-        return "/products";
+        return "foodItem";
     }
 
     //отображение продуктов из БД

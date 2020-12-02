@@ -3,18 +3,21 @@
 <head>
     <title>Cook and count - Вход</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css"
+          href="/styles/main.css" data-th-href="@{/styles/main.css}" />
 </head>
 <body>
+<h1>Cook and Count</h1>
 <div th:if="${param.error}">
     Invalid username and password.
 </div>
 <div th:if="${param.logout}">
     You have been logged out.
 </div>
-<form th:action="@{/login}" method="post">
-    <div><label> Логин : <input type="text" name="username"/> </label></div>
-    <div><label> Пароль: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Войти"/></div>
+<form class="loginForm" th:action="@{/login}" method="post">
+    <div><label> Логин : <input class="loginInput" type="text" name="username"/> </label></div>
+    <div><label> Пароль: <input class="loginInput" type="password" name="password"/> </label></div>
+    <div><input class="buttonEnter" type="submit" value="Войти"/></div>
 </form>
 <a href="/registration">Регистрация</a>
 </body>
