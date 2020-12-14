@@ -1,6 +1,7 @@
 package com.cookAndCount.cookAndCount.controllers;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
 import com.cookAndCount.cookAndCount.domain.Recipe;
 import com.cookAndCount.cookAndCount.domain.RecipeList;
@@ -40,12 +41,21 @@ public class RecipeListController {
         Long userId = user.getUserId();
 
         Recipe recipe = recipeRepository.findById(Long.parseLong(addingRecipeId));
-        RecipeList recipeList = new RecipeList();
-        recipeList.setOwnerId(userId);
-        recipeList.setRecipeListName(RecipeList.DEFAULT_RECIPE_LIST_NAME);
+        HashSet<RecipeList> recipeListsByUserId = recipeListRepository.findAllByOwnerId(userId);
+        HashSet<RecipeList> recipeListsByRecipe = recipeListRepository.findAllByRecipe(recipe);
+        recipeListsByUserId.retainAll(recipeListsByRecipe);
+        if (recipeListsByUserId.size() == 0) {
+            RecipeList recipeList = new RecipeList();
+            recipeList.setOwnerId(userId);
+            recipeList.setRecipeListName(RecipeList.DEFAULT_RECIPE_LIST_NAME);
 
-        recipeList.setRecipe(recipe);
-        recipeListRepository.save(recipeList);
+            recipeList.setRecipe(recipe);
+            recipeListRepository.save(recipeList);
+        } else {
+            System.out.println("Рецепт уже в списке");
+            //todo добавить всплывающее окно
+        }
+
 
         return "redirect:/main";
     }

@@ -1,9 +1,11 @@
 package com.cookAndCount.cookAndCount.controllers;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
 import com.cookAndCount.cookAndCount.domain.FoodItem;
 import com.cookAndCount.cookAndCount.domain.FoodItemsList;
+import com.cookAndCount.cookAndCount.domain.QuantityHandler;
 import com.cookAndCount.cookAndCount.domain.Recipe;
 import com.cookAndCount.cookAndCount.domain.RecipeList;
 import com.cookAndCount.cookAndCount.domain.UserAccount;
@@ -83,10 +85,10 @@ public class MainController {
 
         if(foodItemRepository.findByFoodItemName(foodItemName) == null) {
             FoodItem foodItem = new FoodItem(foodItemName,
-                Integer.parseInt(calories),
-                Double.parseDouble(protein),
-                Double.parseDouble(fat),
-                Double.parseDouble(carbohydrates));
+                QuantityHandler.parseQuantity(calories),
+                QuantityHandler.parseQuantity(protein),
+                QuantityHandler.parseQuantity(fat),
+                QuantityHandler.parseQuantity(carbohydrates));
 
             foodItemRepository.save(foodItem);
         } else {
@@ -180,7 +182,7 @@ public class MainController {
         UserAccount user = userAccountRepository.findByUsername(username);
         Long userId = user.getUserId();
 
-        ArrayList<RecipeList> recipeLists = recipeListRepository.findAllByOwnerId(userId);
+        HashSet<RecipeList> recipeLists = recipeListRepository.findAllByOwnerId(userId);
         ArrayList<Recipe> recipes = new ArrayList<>();
         for (RecipeList recipeList : recipeLists) {
             Recipe recipe = recipeList.getRecipe();
@@ -189,7 +191,6 @@ public class MainController {
         model.put("userRecipes", recipes);
 
     }
-
 
     @GetMapping("/viewFoodItem")
     public String viewFoodItem(@RequestParam ("enteredFoodItemId") String enteredFoodItemId,
