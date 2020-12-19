@@ -29,7 +29,7 @@
             <td colspan="6">Продукты не найдены</td>
         </tr>
         <tr th:each="foodItem : ${searchFoodItems}">
-            <td><a href="/viewFoodItem?enteredFoodItemId=${foodItem.foodItemId}">
+            <td><a th:href="@{/viewFoodItem(enteredFoodItemId=${foodItem.foodItemId})}">
                 <span th:text="${foodItem.foodItemName}">Название продукта</span>
             </a>
             </td>
