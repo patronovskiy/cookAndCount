@@ -43,10 +43,6 @@
             <td>
                 <form method="post" th:action="@{/addRecipeToList}" name="addRecipeToList">
                     <input name="addingRecipeId" th:value="${recipe.recipeId}" class="hidden">
-                    <!--                                если будет несколько списков-->
-                    <!--                                <select name="recipeListName">-->
-                    <!--                                    <option th:each="recipeList : ${recipeLists}" th:value="${recipeList.recipeListName}"></option>-->
-                    <!--                                </select>-->
                     <button type="submit">Добавить в список</button>
                 </form>
             </td>
