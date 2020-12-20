@@ -4,6 +4,8 @@ import com.cookAndCount.cookAndCount.domain.Recipe;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
 import java.util.ArrayList;
 
 /**
@@ -13,6 +15,7 @@ import java.util.ArrayList;
  * @link https://github.com/NuclearKat369
  */
 
+@Repository
 public interface RecipeRepository extends CrudRepository <Recipe, Long> {
 
     ArrayList<Recipe> findByRecipeName(String recipeName);

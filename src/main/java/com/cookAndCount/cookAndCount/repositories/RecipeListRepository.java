@@ -5,6 +5,7 @@ import java.util.HashSet;
 import com.cookAndCount.cookAndCount.domain.Recipe;
 import com.cookAndCount.cookAndCount.domain.RecipeList;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author patronovskiy
@@ -13,6 +14,7 @@ import org.springframework.data.repository.CrudRepository;
  * @link https://github.com/NuclearKat369
  */
 
+@Repository
 public interface RecipeListRepository extends CrudRepository<RecipeList, Long> {
 
 //    ArrayList<RecipeList> findAllByOwnerId(Long ownerId);
