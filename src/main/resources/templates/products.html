@@ -5,7 +5,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
-        <h1>Список продуктов</h1>
+        <h1 type="button" onclick="location.href='main'">Список продуктов</h1>
+        <div class="toMainAndBackSection">
+            <form>
+                <input class="buttonGeneral" type="button" value="Назад" onclick="history.back()">
+                <input class="buttonGeneral" type="button" value="На главную" onclick="location.href='main'">
+            </form>
+        </div>
         <div class="productsSection">
             <div class="productsListSection">
                 <table>

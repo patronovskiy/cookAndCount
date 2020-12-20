@@ -9,9 +9,14 @@
 <body>
 
 
-<h1>Cook and Count</h1>
+<h1 type="button" onclick="location.href='main'">Cook and Count</h1>
 <h2 th:inline="text">Приветствуем, [[${#httpServletRequest.remoteUser}]]!</h2>
-
+<div class="toMainAndBackSection">
+    <form>
+        <input class="buttonGeneral" type="button" value="Назад" onclick="history.back()">
+        <input class="buttonGeneral" type="button" value="На главную" onclick="location.href='main'">
+    </form>
+</div>
 <div class="menuBarSection">
     <list class="menuBar">
         <ul>
@@ -40,7 +45,7 @@
             <datalist id="recipeDatalist">
                 <option th:each=" recipe : ${recipes}" th:value="${recipe.recipeName}" th:text="${recipe.recipeName}"></option>
             </datalist>
-            <button class="buttonSearch" type="submit">Искать рецепт</button>
+            <button class="buttonGeneral" type="submit">Искать рецепт</button>
         </form>
     </div>
     <div class="RecipesListSection">

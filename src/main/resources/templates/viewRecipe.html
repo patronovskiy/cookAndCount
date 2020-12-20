@@ -9,7 +9,13 @@
           href="/styles/main.css" data-th-href="@{/styles/main.css}" />
 </head>
 <body>
-    <h1 class="header1">Просмотр рецепта "<span th:text="${foundRecipe.recipeName}"></span>"</h1>
+    <h1 class="header1" type="button" onclick="location.href='main'">Просмотр рецепта "<span th:text="${foundRecipe.recipeName}"></span>"</h1>
+    <div class="toMainAndBackSection">
+        <form>
+            <input class="buttonGeneral" type="button" value="Назад" onclick="history.back()">
+            <input class="buttonGeneral" type="button" value="На главную" onclick="location.href='main'">
+        </form>
+    </div>
     <div class="viewRecipeSection">
         <table>
         <caption><h2 th:text="${foundRecipe.recipeName}">Рецепт</h2></caption>
