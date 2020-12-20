@@ -2,6 +2,8 @@ package com.cookAndCount.cookAndCount.repositories;
 
 import com.cookAndCount.cookAndCount.domain.RecipeList;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 /**
@@ -11,6 +13,7 @@ import java.util.List;
  * @link https://github.com/NuclearKat369
  */
 
+@Repository
 public interface RecipeListId extends CrudRepository<RecipeList, Long> {
 //    List<RecipeList> findByRecipeListName(String recipeListName);
 
