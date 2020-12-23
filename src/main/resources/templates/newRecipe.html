@@ -48,7 +48,7 @@
                 <caption>Добавить новый рецепт</caption>
                 <tr>
                     <td>Название рецепта</td>
-                    <td><input type="text" name="recipeName" th:field="*{recipeName}"></td>
+                    <td><input type="text" name="recipeName" th:field="*{recipeName}" required></td>
                 </tr>
                 <tr>
                     <td>Описание рецепта</td>
@@ -58,6 +58,14 @@
                     <td>Выберите продукт</td>
                     <td>Введите количество продукта</td>
                     <td><input type="submit" th:text="Добавить"></td>
+                </tr>
+                <tr th:each="foodItemList : ${foodItemLists}">
+                    <td>
+                        <input list="food-items-list" type="text" name="foodItemName" autocomplete="off" required>
+                    </td>
+                    <td>
+                        <input type="number" name="foodItemQuantity" required>
+                    </td>
                 </tr>
                 <tr th:each="foodItemList : ${foodItemLists}">
                     <td>

@@ -12,8 +12,8 @@
     <span th:text="${message}"></span>
 </div>
 <form class="regForm" th:action="@{/registration}" method="post">
-    <div><label> Логин: <input type="text" name="username"/> </label></div>
-    <div><label> Пароль: <input type="password" name="password"/> </label></div>
+    <div><label> Логин: <input type="text" name="username" required/> </label></div>
+    <div><label> Пароль: <input type="password" name="password" required/> </label></div>
     <div><label> Email: <input type="email" name="email"/> </label></div>
     <div><input class="regButton" type="submit" value="Зарегистрироваться"/></div>
 </form>

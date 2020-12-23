@@ -17,7 +17,7 @@
         <div class="recipesSection">
             <div class="searchRecipeSection">
                 <form name="searchRecipeForm" method="post" th:action="@{/searchRecipeByName}" >
-                    <input name="recipeName" type="text" list="recipeDatalist" placeholder="Начните вводить название рецепта...">
+                    <input name="recipeName" type="text" list="recipeDatalist" placeholder="Начните вводить название рецепта..." required>
                     <datalist id="recipeDatalist">
                         <option th:each=" recipe : ${recipes}" th:value="${recipe.recipeName}" th:text="${recipe.recipeName}"></option>
                     </datalist>

@@ -41,7 +41,7 @@
 <div class="recipesSection">
     <div class="searchRecipeSection">
         <form name="searchRecipeForm" method="post" th:action="@{/searchRecipeByName}" >
-            <input name="recipeName" type="text" list="recipeDatalist" placeholder="Начните вводить название рецепта..." size="40">
+            <input name="recipeName" type="text" list="recipeDatalist" placeholder="Начните вводить название рецепта..." size="40" required>
             <datalist id="recipeDatalist">
                 <option th:each=" recipe : ${recipes}" th:value="${recipe.recipeName}" th:text="${recipe.recipeName}"></option>
             </datalist>
@@ -86,7 +86,7 @@
                 <caption class="tableName">Добавить новый рецепт</caption>
                 <tr>
                     <td class="rightLabel">Название рецепта</td>
-                    <td colspan="2"><input type="text" name="recipeName" class="inputText" th:field="*{recipeName}"></td>
+                    <td colspan="2"><input type="text" name="recipeName" class="inputText" th:field="*{recipeName}" required></td>
                 </tr>
                 <tr>
                     <td class="rightLabel">Описание рецепта</td>
@@ -97,6 +97,15 @@
                     <td>Выберите продукт</td>
                     <td class="leftLabel">Введите количество продукта</td>
                     <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input list="food-items-list" type="text" name="foodItemName" autocomplete="off" class="inputText" required>
+                    </td>
+                    <td class="leftInput">
+                        <input type="number" min="0" name="foodItemQuantity" required>
+                    </td>
                 </tr>
                 <tr th:each="foodItemList : ${foodItemLists}">
                     <td></td>
@@ -125,11 +134,11 @@
     <div class="addFoodItemForm">
         <span>Добавить продукт</span>
         <form method="post" th:action="@{/addFoodItem}">
-            <input type="text" name="foodItemName" placeholder="введите название продукта" size="35">
-            <input type="text" name="calories" placeholder="введите количество ккал" size="35">
-            <input type="text" name="protein" placeholder="введите количество белков, г" size="35">
-            <input type="text" name="fat" placeholder="введите количество жиров, г" size="35">
-            <input type="text" name="carbohydrates" placeholder="введите количество углеводов, г" size="35">
+            <input type="text" name="foodItemName" placeholder="введите название продукта" size="35" required>
+            <input type="text" name="calories" placeholder="введите количество ккал" size="35" required>
+            <input type="text" name="protein" placeholder="введите количество белков, г" size="35" required>
+            <input type="text" name="fat" placeholder="введите количество жиров, г" size="35" required>
+            <input type="text" name="carbohydrates" placeholder="введите количество углеводов, г" size="35" required>
             <button type="submit">Добавить</button>
         </form>
     </div>

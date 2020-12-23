@@ -47,7 +47,6 @@ public class FoodItem {
         this.protein = protein;
         this.fat = fat;
         this.carbohydrates = carbohydrates;
-        //правка от 21.12.20
         this.foodItemsLists = new ArrayList<>();
     }
 

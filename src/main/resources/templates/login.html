@@ -15,8 +15,8 @@
     Вы вышли из профиля
 </div>
 <form class="loginForm" th:action="@{/login}" method="post">
-    <div><label> Логин : <input class="loginInput" type="text" name="username"/> </label></div>
-    <div><label> Пароль: <input class="loginInput" type="password" name="password"/> </label></div>
+    <div><label> Логин : <input class="loginInput" type="text" name="username" required/> </label></div>
+    <div><label> Пароль: <input class="loginInput" type="password" name="password" required/> </label></div>
     <div><input class="buttonEnter" type="submit" value="Войти"/></div>
 </form>
 <a href="/registration">Регистрация</a>

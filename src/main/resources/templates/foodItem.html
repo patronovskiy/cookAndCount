@@ -16,7 +16,7 @@
         </div>
         <div class="searchFoodItemSection">
             <form name="searchFoodItemForm" method="post" th:action="@{/searchFoodItemByName}" >
-                <input name="foodItemName" type="text" list="foodItemDatalist" placeholder="Начните вводить название продукта..." size="40">
+                <input name="foodItemName" type="text" list="foodItemDatalist" placeholder="Начните вводить название продукта..." size="40" required>
                 <datalist id="foodItemDatalist">
                     <option th:each=" foodItem : ${foodItems}" th:value="${foodItem.foodItemName}" th:text="${foodItem.foodItemName}"></option>
                 </datalist>
@@ -58,11 +58,11 @@
             <div class="addFoodItemForm">
                 <span>Добавить продукт</span>
                 <form method="post" th:action="@{/addFoodItem}">
-                    <input type="text" name="foodItemName" placeholder="введите название продукта" size="35">
-                    <input type="text" name="calories" placeholder="введите количество ккал" size="35">
-                    <input type="text" name="protein" placeholder="введите количество белков, г" size="35">
-                    <input type="text" name="fat" placeholder="введите количество жиров, г" size="35">
-                    <input type="text" name="carbohydrates" placeholder="введите количество углеводов, г" size="35">
+                    <input type="text" name="foodItemName" placeholder="введите название продукта" size="35" required>
+                    <input type="text" name="calories" placeholder="введите количество ккал" size="35" required>
+                    <input type="text" name="protein" placeholder="введите количество белков, г" size="35" required>
+                    <input type="text" name="fat" placeholder="введите количество жиров, г" size="35" required>
+                    <input type="text" name="carbohydrates" placeholder="введите количество углеводов, г" size="35" required>
                     <button type="submit">Добавить</button>
                 </form>
             </div>

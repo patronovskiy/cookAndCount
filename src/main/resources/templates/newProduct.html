@@ -45,11 +45,11 @@
     <div class="addFoodItemForm">
         <span>Добавить продукт</span>
         <form method="post" th:action="@{/addFoodItem}">
-            <input type="text" name="foodItemName" placeholder="введите название продукта">
-            <input type="text" name="calories" placeholder="введите количество ккал">
-            <input type="text" name="protein" placeholder="введите количество белков, г">
-            <input type="text" name="fat" placeholder="введите количество жиров, г">
-            <input type="text" name="carbohydrates" placeholder="введите количество углеводов, г">
+            <input type="text" name="foodItemName" placeholder="введите название продукта" required>
+            <input type="text" name="calories" placeholder="введите количество ккал" required>
+            <input type="text" name="protein" placeholder="введите количество белков, г" required>
+            <input type="text" name="fat" placeholder="введите количество жиров, г" required>
+            <input type="text" name="carbohydrates" placeholder="введите количество углеводов, г" required>
             <button type="submit">Добавить</button>
         </form>
     </div>
