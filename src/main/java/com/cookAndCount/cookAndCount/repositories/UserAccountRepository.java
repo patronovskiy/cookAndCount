@@ -2,6 +2,8 @@ package com.cookAndCount.cookAndCount.repositories;
 
 import com.cookAndCount.cookAndCount.domain.UserAccount;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 /**
@@ -11,6 +13,7 @@ import java.util.List;
  * @link https://github.com/NuclearKat369
  */
 
+@Repository
 public interface UserAccountRepository extends JpaRepository<UserAccount, Long> {
 
     UserAccount findByUsername(String username);

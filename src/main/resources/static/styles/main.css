@@ -10,12 +10,12 @@ body{
 h1 {
     font: bold 50px "Courier New";
     -webkit-text-stroke: 1px white;
-    /*background-color: mistyrose;*/
     background: url("../logos/headerlogo.png") repeat center;
     background-size: cover;
     border-style: double;
     border-color: gainsboro;
     border-width: 10px;
+    cursor: pointer;
     text-align: center;
 }
 
@@ -31,7 +31,8 @@ button {
     justify-self: baseline;
     background-color: gainsboro;
     color: #556B2F;
-    font: bold 20px "Courier New";
+    cursor: pointer;
+    font: bold 24px "Courier New";
     padding: 3px 3px;
     text-align: center;
     text-decoration: none;
@@ -40,6 +41,7 @@ button {
 a:link {
     background-color: ivory;
     color: darkolivegreen;
+    cursor: pointer;
     font: bold 16px "Courier New";
     position: center;
     text-align: center;
@@ -49,6 +51,7 @@ a:link {
 a:visited {
     background-color: ivory;
     color: royalblue;
+    cursor: pointer;
     font: bold 16px "Courier New";
     position: center;
     text-align: center;
@@ -92,6 +95,7 @@ table {
 .buttonExit {
      background-color: #FF6762;
      color: black;
+     cursor: pointer;
      font: bold 20px "Courier New";
      padding: 10px 10px;
      text-align: center;
@@ -101,15 +105,17 @@ table {
 .menuButton {
     background-color: #556B2F;
     color: white;
+    cursor: pointer;
     font: 20px "Courier New";
     padding: 10px 10px;
     text-align: center;
     text-decoration: none;
 }
 
-.buttonSearch {
+.buttonGeneral {
     background-image: radial-gradient(ellipse, #ffffff, #C0D49F);
     color: black;
+    cursor: pointer;
     font: bold 20px "Courier New";
     padding: 3px 3px;
     text-align: center;
@@ -226,6 +232,7 @@ table {
 .buttonEnter,.regButton{
     background-color: darkolivegreen;
     color: white;
+    cursor: pointer;
     font: bold 30px "Courier New";
     padding: 10px 10px;
     text-align: right;

@@ -9,26 +9,16 @@
 <body>
 
 
-<h1>Cook and Count</h1>
+<h1 type="button" onclick="location.href='main'">Cook and Count</h1>
 <h2 th:inline="text">Приветствуем, [[${#httpServletRequest.remoteUser}]]!</h2>
-
+<div class="toMainAndBackSection">
+    <form>
+        <input class="buttonGeneral" type="button" value="Назад" onclick="history.back()">
+        <input class="buttonGeneral" type="button" value="На главную" onclick="location.href='main'">
+    </form>
+</div>
 <div class="menuBarSection">
     <list class="menuBar">
-<!--        <ul>-->
-<!--            <a href="/newRecipe">-->
-<!--                <input class="menuButton" type="button" value = "Добавить рецепт">-->
-<!--            </a>-->
-<!--        </ul>-->
-<!--        <ul>-->
-<!--            <a href="/newProduct">-->
-<!--                <input class="menuButton" type="button" value = "Добавить продукт">-->
-<!--            </a>-->
-<!--        </ul>-->
-<!--        <ul>-->
-<!--            <a href="/recipeLists">-->
-<!--                <input class="menuButton" type="button" value = "Мои списки">-->
-<!--            </a>-->
-<!--        </ul>-->
         <ul>
             <a href="/products">
                 <input class="menuButton" type="button" value = "Все продукты">
@@ -51,11 +41,11 @@
 <div class="recipesSection">
     <div class="searchRecipeSection">
         <form name="searchRecipeForm" method="post" th:action="@{/searchRecipeByName}" >
-            <input name="recipeName" type="text" list="recipeDatalist" placeholder="Начните вводить название рецепта..." size="40">
+            <input name="recipeName" type="text" list="recipeDatalist" placeholder="Начните вводить название рецепта..." size="40" required>
             <datalist id="recipeDatalist">
                 <option th:each=" recipe : ${recipes}" th:value="${recipe.recipeName}" th:text="${recipe.recipeName}"></option>
             </datalist>
-            <button class="buttonSearch" type="submit">Искать рецепт</button>
+            <button class="buttonGeneral" type="submit">Искать рецепт</button>
         </form>
     </div>
     <div class="RecipesListSection">
@@ -96,7 +86,7 @@
                 <caption class="tableName">Добавить новый рецепт</caption>
                 <tr>
                     <td class="rightLabel">Название рецепта</td>
-                    <td colspan="2"><input type="text" name="recipeName" class="inputText" th:field="*{recipeName}"></td>
+                    <td colspan="2"><input type="text" name="recipeName" class="inputText" th:field="*{recipeName}" required></td>
                 </tr>
                 <tr>
                     <td class="rightLabel">Описание рецепта</td>
@@ -107,6 +97,15 @@
                     <td>Выберите продукт</td>
                     <td class="leftLabel">Введите количество продукта</td>
                     <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input list="food-items-list" type="text" name="foodItemName" autocomplete="off" class="inputText" required>
+                    </td>
+                    <td class="leftInput">
+                        <input type="number" min="0" name="foodItemQuantity" required>
+                    </td>
                 </tr>
                 <tr th:each="foodItemList : ${foodItemLists}">
                     <td></td>
@@ -125,9 +124,6 @@
                 </tr>
             </table>
         </form>
-        <!--        <form method="get" name="addRow">-->
-        <!--            <button th:action="@{/addRow}">Добавить еще ингредиенты</button>-->
-        <!--        </form>-->
     </div>
 
 </div>
@@ -138,11 +134,11 @@
     <div class="addFoodItemForm">
         <span>Добавить продукт</span>
         <form method="post" th:action="@{/addFoodItem}">
-            <input type="text" name="foodItemName" placeholder="введите название продукта" size="35">
-            <input type="text" name="calories" placeholder="введите количество ккал" size="35">
-            <input type="text" name="protein" placeholder="введите количество белков, г" size="35">
-            <input type="text" name="fat" placeholder="введите количество жиров, г" size="35">
-            <input type="text" name="carbohydrates" placeholder="введите количество углеводов, г" size="35">
+            <input type="text" name="foodItemName" placeholder="введите название продукта" size="35" required>
+            <input type="text" name="calories" placeholder="введите количество ккал" size="35" required>
+            <input type="text" name="protein" placeholder="введите количество белков, г" size="35" required>
+            <input type="text" name="fat" placeholder="введите количество жиров, г" size="35" required>
+            <input type="text" name="carbohydrates" placeholder="введите количество углеводов, г" size="35" required>
             <button type="submit">Добавить</button>
         </form>
     </div>

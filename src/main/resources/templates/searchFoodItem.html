@@ -9,7 +9,13 @@
           href="/styles/main.css" data-th-href="@{/styles/main.css}" />
 </head>
 <body>
-<h1>Поиск продуктов по запросу "<span th:text="${searchFoodItemName}"></span>"</h1>
+<h1 type="button" onclick="location.href='main'">Поиск продуктов по запросу "<span th:text="${searchFoodItemName}"></span>"</h1>
+<div class="toMainAndBackSection">
+    <form>
+        <input class="buttonGeneral" type="button" value="Назад" onclick="history.back()">
+        <input class="buttonGeneral" type="button" value="На главную" onclick="location.href='main'">
+    </form>
+</div>
 <div class="foodItems">
     <div class="FoodItemsList">
     <table>
@@ -29,7 +35,7 @@
             <td colspan="6">Продукты не найдены</td>
         </tr>
         <tr th:each="foodItem : ${searchFoodItems}">
-            <td><a href="/viewFoodItem?enteredFoodItemId=${foodItem.foodItemId}">
+            <td><a th:href="@{/viewFoodItem(enteredFoodItemId=${foodItem.foodItemId})}">
                 <span th:text="${foodItem.foodItemName}">Название продукта</span>
             </a>
             </td>

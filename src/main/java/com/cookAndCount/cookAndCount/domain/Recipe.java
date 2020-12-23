@@ -66,7 +66,7 @@ public class Recipe {
     }
 
     public double getSumCalories() {
-        return sumCalories;
+        return (Math.round(sumCalories * 100)/100.0);
     }
 
     public void setSumCalories(double sumCalories) {
@@ -74,7 +74,7 @@ public class Recipe {
     }
 
     public double getSumProtein() {
-        return sumProtein;
+        return (Math.round(sumProtein * 100)/100.0);
     }
 
     public void setSumProtein(double sumProtein) {
@@ -82,7 +82,7 @@ public class Recipe {
     }
 
     public double getSumFat() {
-        return sumFat;
+        return (Math.round(sumFat * 100)/100.0);
     }
 
     public void setSumFat(double sumFat) {
@@ -90,7 +90,7 @@ public class Recipe {
     }
 
     public double getSumCarbohydrates() {
-        return sumCarbohydrates;
+        return (Math.round(sumCarbohydrates * 100)/100.0);
     }
 
     public void setSumCarbohydrates(double sumCarbohydrates) {

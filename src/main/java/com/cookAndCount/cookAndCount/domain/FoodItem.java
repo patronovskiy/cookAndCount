@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,6 +47,7 @@ public class FoodItem {
         this.protein = protein;
         this.fat = fat;
         this.carbohydrates = carbohydrates;
+        this.foodItemsLists = new ArrayList<>();
     }
 
     public void setGlycemicIndex(int glycemicIndex) {

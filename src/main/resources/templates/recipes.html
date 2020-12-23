@@ -7,15 +7,21 @@
               href="/styles/main.css" data-th-href="@{/styles/main.css}" />
     </head>
     <body>
-        <h1>Все рецепты</h1>
+        <h1 type="button" onclick="location.href='main'">Все рецепты</h1>
+        <div class="toMainAndBackSection">
+            <form>
+                <input class="buttonGeneral" type="button" value="Назад" onclick="history.back()">
+                <input class="buttonGeneral" type="button" value="На главную" onclick="location.href='main'">
+            </form>
+        </div>
         <div class="recipesSection">
             <div class="searchRecipeSection">
                 <form name="searchRecipeForm" method="post" th:action="@{/searchRecipeByName}" >
-                    <input name="recipeName" type="text" list="recipeDatalist" placeholder="Начните вводить название рецепта...">
+                    <input name="recipeName" type="text" list="recipeDatalist" placeholder="Начните вводить название рецепта..." required>
                     <datalist id="recipeDatalist">
                         <option th:each=" recipe : ${recipes}" th:value="${recipe.recipeName}" th:text="${recipe.recipeName}"></option>
                     </datalist>
-                    <button class="buttonSearch" type="submit">Искать рецепт</button>
+                    <button class="buttonGeneral" type="submit">Искать рецепт</button>
                 </form>
             </div>
             <div class="RecipesListSection">
@@ -48,10 +54,6 @@
                         <td>
                             <form method="post" th:action="@{/addRecipeToList}" name="addRecipeToList">
                                 <input name="addingRecipeId" th:value="${recipe.recipeId}" class="hidden">
-<!--                                если будет несколько списков-->
-<!--                                <select name="recipeListName">-->
-<!--                                    <option th:each="recipeList : ${recipeLists}" th:value="${recipeList.recipeListName}"></option>-->
-<!--                                </select>-->
                                 <button type="submit">Добавить в список</button>
                             </form>
                         </td>

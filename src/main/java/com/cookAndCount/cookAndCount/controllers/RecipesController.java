@@ -1,6 +1,7 @@
 package com.cookAndCount.cookAndCount.controllers;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import com.cookAndCount.cookAndCount.domain.Recipe;
@@ -37,7 +38,7 @@ public class RecipesController {
 
         String username = LoginController.getCurrentUsername();
         UserAccount user = userAccountRepository.findByUsername(username);
-        ArrayList<RecipeList> recipeLists = recipeListRepository.findAllByOwnerId(user.getUserId());
+        HashSet<RecipeList> recipeLists = recipeListRepository.findAllByOwnerId(user.getUserId());
         model.put("recipeLists", recipeLists);
 
         return "/recipes";
