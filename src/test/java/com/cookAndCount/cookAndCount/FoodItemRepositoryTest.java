@@ -15,6 +15,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
+
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class FoodItemRepositoryTest {
